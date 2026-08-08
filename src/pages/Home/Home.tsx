@@ -13,14 +13,14 @@ import {
 } from './Home.styles';
 
 const allTasks = [
-  { category: 'Estudos', title: 'Estudar Python', progress: 75 },
-  { category: 'Saúde', title: 'Ir para academia', progress: 57 },
-  { category: 'Estudos', title: 'Ler mais livros', progress: 25 },
-  { category: 'Corrida', title: 'Correr uma maratona', progress: 40 },
-  { category: 'Vida', title: 'Juntar dinheiro', progress: 67 },
-  { category: 'Finanças', title: 'Não gastar à toa', progress: 33 },
-  { category: 'Trabalho', title: 'Atualizar Portfólio', progress: 90 },
-  { category: 'Casa', title: 'Limpar a casa', progress: 10 },
+  { category: 'Estudos', title: 'Estudar Python', progress: 75, description: 'Aprender conceitos avançados de orientação a objetos e criar um projeto prático.' },
+  { category: 'Saúde', title: 'Ir para academia', progress: 57, description: 'Focar no treino de superiores e fazer 30 minutos de cardio no pós-treino.' },
+  { category: 'Estudos', title: 'Ler mais livros', progress: 25, description: 'Concluir pelo menos dois capítulos do livro atual por dia antes de dormir.' },
+  { category: 'Corrida', title: 'Correr uma maratona', progress: 40, description: 'Manter a constância nos treinos de resistência e aumentar a distância aos poucos.' },
+  { category: 'Vida', title: 'Juntar dinheiro', progress: 67, description: 'Guardar 20% de toda entrada mensal em uma aplicação de renda fixa.' },
+  { category: 'Finanças', title: 'Não gastar à toa', progress: 33, description: 'Evitar compras por impulso e registrar todos os gastos no aplicativo de controle.' },
+  { category: 'Trabalho', title: 'Atualizar Portfólio', progress: 90, description: 'Adicionar os últimos projetos desenvolvidos com React e TypeScript.' },
+  { category: 'Casa', title: 'Limpar a casa', progress: 10, description: 'Organizar os cômodos, lavar as louças e recolher o lixo acumulado.' },
 ];
 
 export const Home: React.FC = () => {
@@ -67,6 +67,7 @@ export const Home: React.FC = () => {
                 category={task.category}
                 title={task.title}
                 progress={task.progress}
+                description={task.description}
               />
             ))}
           </CardGrid>

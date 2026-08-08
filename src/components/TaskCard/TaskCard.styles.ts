@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(motion.div)`
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -16,7 +17,7 @@ export const CardContainer = styled.div`
     overflow: hidden;
     position: relative;
     justify-content: space-between;
-    transition: transform 0.1s ease-out, box-shadow 0.3s ease, background 0.3s ease;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
     transform-style: preserve-3d;
     will-change: transform;
 

@@ -13,7 +13,10 @@ export const HeaderContainer = styled.header`
     transition: background-color 0.3s ease, border-color 0.3s ease;
 
     @media (max-width: 768px) {
-        background: linear-gradient(to right, #1597D9, #0077B6);
+        background: 
+                radial-gradient(circle at 80% 20%, rgba(168, 230, 29, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
+                linear-gradient(135deg, #0b1a0f 0%, #112a17 50%, #050d08 100%);
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
 `;
