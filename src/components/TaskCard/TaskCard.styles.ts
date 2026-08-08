@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const CardContainer = styled(motion.div)`
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.8
+    );
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.6);

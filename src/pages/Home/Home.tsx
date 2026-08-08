@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
 import { Header } from '../../components/Header/Header';
+import { TaskCardView } from '../../components/TaskCardView/TaskCardView';
 import { TaskCard } from '../../components/TaskCard/TaskCard';
 import {
   MainContentWrapper,
@@ -12,25 +14,77 @@ import {
   CardGrid
 } from './Home.styles';
 
-const allTasks = [
-  { category: 'Estudos', title: 'Estudar Python', progress: 75, description: 'Aprender conceitos avançados de orientação a objetos e criar um projeto prático.' },
-  { category: 'Saúde', title: 'Ir para academia', progress: 57, description: 'Focar no treino de superiores e fazer 30 minutos de cardio no pós-treino.' },
-  { category: 'Estudos', title: 'Ler mais livros', progress: 25, description: 'Concluir pelo menos dois capítulos do livro atual por dia antes de dormir.' },
-  { category: 'Corrida', title: 'Correr uma maratona', progress: 40, description: 'Manter a constância nos treinos de resistência e aumentar a distância aos poucos.' },
-  { category: 'Vida', title: 'Juntar dinheiro', progress: 67, description: 'Guardar 20% de toda entrada mensal em uma aplicação de renda fixa.' },
-  { category: 'Finanças', title: 'Não gastar à toa', progress: 33, description: 'Evitar compras por impulso e registrar todos os gastos no aplicativo de controle.' },
-  { category: 'Trabalho', title: 'Atualizar Portfólio', progress: 90, description: 'Adicionar os últimos projetos desenvolvidos com React e TypeScript.' },
-  { category: 'Casa', title: 'Limpar a casa', progress: 10, description: 'Organizar os cômodos, lavar as louças e recolher o lixo acumulado.' },
+interface SubTask {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+
+interface Task {
+  category: string;
+  title: string;
+  progress: number;
+  description: string;
+  subtasks?: SubTask[];
+}
+
+const initialTasks: Task[] = [
+  { 
+    category: 'Engenharia de Software', 
+    title: 'Frontend', 
+    progress: 49, 
+    description: 'Conceitos avançados de Frontend',
+    subtasks: [
+  { id: '1', title: 'Gerenciamento de estado;', completed: false },
+  { id: '2', title: 'Testes de Frontend;', completed: false },
+  { id: '3', title: 'Performance Web;', completed: false },
+  { id: '4', title: 'Segurança no Frontend (XSS, CSRF);', completed: false },
+  { id: '5', title: 'SSR / SSG;', completed: false },
+  { id: '6', title: 'Microfrontends;', completed: false },
+  { id: '7', title: 'Interface de Usuário (UI);', completed: false },
+  { id: '8', title: 'Experiência de Usuário (UX);', completed: false },
+  { id: '9', title: 'Usabilidade;', completed: false },
+  { id: '10', title: 'Responsividade;', completed: false },
+  { id: '11', title: 'Consumo de APIs;', completed: false },
+  { id: '12', title: 'HTML semântico;', completed: false },
+  { id: '13', title: 'Intencionalidade;', completed: false },
+  { id: '14', title: 'CSS (Flexbox, Grid);', completed: false },
+  { id: '15', title: 'Acessibilidade;', completed: false },
+  { id: '16', title: 'Pré-processadores CSS (Sass, Less);', completed: false },
+  { id: '17', title: 'Frameworks CSS (Tailwind, Bootstrap);', completed: false },
+  { id: '18', title: 'Clean Code e Boas Práticas;', completed: false },
+  { id: '19', title: 'TypeScript avançado;', completed: false },
+  { id: '20', title: 'Componentização e Design System;', completed: false },
+  { id: '21', title: 'Build Tools (Vite, Webpack);', completed: false },
+  { id: '22', title: 'Controle de Versão (Git e GitHub);', completed: false },
+  { id: '23', title: 'CI/CD para Frontend;', completed: false },
+  { id: '24', title: 'Web Vitals e Otimização de SEO;', completed: false },
+  { id: '25', title: 'PWA (Progressive Web Apps);', completed: false },
+  { id: '26', title: 'WebSockets e Tempo Real;', completed: false },
+  { id: '27', title: 'Internacionalização (i18n);', completed: false },
+  { id: '28', title: 'Animações e Framer Motion;', completed: false },
+  { id: '29', title: 'Arquitetura de Pastas e Escalabilidade;', completed: false },
+  { id: '30', title: 'Documentação de Código e Histórias;', completed: false },
+]
+  },
+  { category: 'Engenharia de Software', title: 'Backend', progress: 39, description: 'APIs e arquitetura de servidores' },
+  { category: 'Engenharia de Software', title: 'Banco de Dados', progress: 19, description: 'Modelagem e otimização' },
+  { category: 'Engenharia de Software', title: 'Nuvem', progress: 49, description: 'Deploy e infraestrutura cloud' },
+  { category: 'Engenharia de Software', title: 'Versionamento', progress: 57, description: 'Git avançado' },
+  { category: 'Engenharia de Software', title: 'Testes', progress: 27, description: 'Testes unitários e e2e' },
 ];
 
 export const Home: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [tasks] = useState<Task[]>(initialTasks);
+  const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(null);
+
   const cardsPerPage = 6;
-  const totalPages = Math.ceil(allTasks.length / cardsPerPage) || 1;
+  const totalPages = Math.ceil(tasks.length / cardsPerPage) || 1;
 
   const startIndex = (currentPage - 1) * cardsPerPage;
-  const currentTasks = allTasks.slice(startIndex, startIndex + cardsPerPage);
+  const currentTasks = tasks.slice(startIndex, startIndex + cardsPerPage);
 
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -45,33 +99,48 @@ export const Home: React.FC = () => {
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <MainContentWrapper>
         <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-        <DashboardArea>
-          <DashboardHeader>
-            <DashboardTitle>Início</DashboardTitle>
-            <ViewSelector>
-              <button id="prevBtn" onClick={handlePrev} disabled={currentPage === 1}>
-                Voltar
-              </button>
-              <span id="pageIndicator">{currentPage} / {totalPages}</span>
-              <button id="nextBtn" onClick={handleNext} disabled={currentPage === totalPages}>
-                Próximo
-              </button>
-            </ViewSelector>
-            <AddButton> + Adicionar Card</AddButton>
-          </DashboardHeader>
+        
+        <AnimatePresence mode="wait">
+          {selectedTaskIndex !== null ? (
+            <TaskCardView 
+              key="task-view"
+              task={tasks[selectedTaskIndex]} 
+              onClose={() => setSelectedTaskIndex(null)} 
+            />
+          ) : (
+            <DashboardArea key="dashboard-grid">
+              <DashboardHeader>
+                <DashboardTitle>Início</DashboardTitle>
+                <ViewSelector>
+                  <button id="prevBtn" onClick={handlePrev} disabled={currentPage === 1}>
+                    Voltar
+                  </button>
+                  <span id="pageIndicator">{currentPage} / {totalPages}</span>
+                  <button id="nextBtn" onClick={handleNext} disabled={currentPage === totalPages}>
+                    Próximo
+                  </button>
+                </ViewSelector>
+                <AddButton> + Adicionar Card</AddButton>
+              </DashboardHeader>
 
-          <CardGrid id="cardGrid">
-            {currentTasks.map((task, index) => (
-              <TaskCard
-                key={index}
-                category={task.category}
-                title={task.title}
-                progress={task.progress}
-                description={task.description}
-              />
-            ))}
-          </CardGrid>
-        </DashboardArea>
+              <CardGrid id="cardGrid">
+                {currentTasks.map((task, index) => {
+                  const absoluteIndex = startIndex + index;
+                  return (
+                    <div key={absoluteIndex} onClick={() => setSelectedTaskIndex(absoluteIndex)} style={{ cursor: 'pointer' }}>
+                      <TaskCard
+                        category={task.category}
+                        title={task.title}
+                        progress={task.progress}
+                        description={task.description}
+                      />
+                    </div>
+                  );
+                })}
+              </CardGrid>
+            </DashboardArea>
+          )}
+        </AnimatePresence>
       </MainContentWrapper>
     </>
   );
