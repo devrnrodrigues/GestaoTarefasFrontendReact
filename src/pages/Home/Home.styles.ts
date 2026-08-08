@@ -49,7 +49,7 @@ export const ViewSelector = styled.div`
         transition: all 0.2s;
 
         &:hover:not(:disabled) {
-            color: #0077B6;
+            color: #2E7D32;
         }
 
         &:disabled {
@@ -59,15 +59,15 @@ export const ViewSelector = styled.div`
     }
 
     span.active {
-        color: #0077B6;
+        color: #2E7D32;
         font-weight: bold;
     }
 `;
 
 export const AddButton = styled.button`
     background-color: white;
-    color: #0077B6;
-    border: 1px solid #0077B6;
+    color: #2E7D32;
+    border: 1px solid #2E7D32;
     padding: 8px 20px;
     border-radius: 4px;
     cursor: pointer;
@@ -75,7 +75,10 @@ export const AddButton = styled.button`
     transition: all 0.2s;
 
     &:hover {
-        background-color: #0077B6;
+        background: 
+            radial-gradient(circle at 80% 20%, rgba(168, 230, 29, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
+            linear-gradient(135deg, #0b1a0f 0%, #112a17 50%, #050d08 100%);
         color: white;
     }
 `;

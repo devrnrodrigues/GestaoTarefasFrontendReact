@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
-    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -13,11 +16,13 @@ export const CardContainer = styled.div`
     overflow: hidden;
     position: relative;
     justify-content: space-between;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.1s ease-out, box-shadow 0.3s ease, background 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 
     &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 24px rgba(0, 119, 182, 0.12);
+        background: rgba(255, 255, 255, 0.65);
+        box-shadow: 0 16px 32px rgba(46, 125, 50, 0.08);
     }
 `;
 

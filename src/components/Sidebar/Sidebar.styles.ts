@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 export const SidebarContainer = styled.nav<{ $isOpen: boolean }>`
     width: 260px;
-    background: linear-gradient(to bottom, #1597D9, #0077B6);
-    color: white;
+    background: 
+    radial-gradient(circle at 80% 20%, rgba(168, 230, 29, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
+    linear-gradient(135deg, #0b1a0f 0%, #112a17 50%, #050d08 100%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -45,7 +47,7 @@ export const LogoIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    fill: #0077B6;
+    fill: #1B5E20;
 `;
 
 export const LogoText = styled.span`
