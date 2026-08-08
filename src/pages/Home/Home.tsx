@@ -127,7 +127,11 @@ export const Home: React.FC = () => {
                 {currentTasks.map((task, index) => {
                   const absoluteIndex = startIndex + index;
                   return (
-                    <div key={absoluteIndex} onClick={() => setSelectedTaskIndex(absoluteIndex)} style={{ cursor: 'pointer' }}>
+                    <div 
+                      key={absoluteIndex} 
+                      onClick={() => setSelectedTaskIndex(absoluteIndex)} 
+                      style={{ cursor: 'pointer', width: '100%' }}
+                    >
                       <TaskCard
                         category={task.category}
                         title={task.title}
