@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const CardContainer = styled(motion.div)`
-    background: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.8);
     display: flex;
     flex-direction: column;
     width: 100%;

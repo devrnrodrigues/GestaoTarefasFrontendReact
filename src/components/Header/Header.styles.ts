@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
-    background: radial-gradient(
-    circle at center,
-    #ffffff 0%,  
-    #fbfbfb 25%,   
-    #f5f5f5 60%,   
-    #eaeaea 100%   
-  );
+    background-color: #ffffff;
+background-image: 
+    radial-gradient(at 10% 20%, #f4f4f4 0px, #ffffff 50%),
+    radial-gradient(at 90% 80%, #ebebeb 0px, #ffffff 50%);
+    background-size: 100% 100%, 100% 100%;
     padding: 20px 40px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1
     );

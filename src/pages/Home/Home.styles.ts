@@ -8,6 +8,11 @@ export const MainContentWrapper = styled.main`
     padding: 0 15px;
     min-height: 100vh;
     transition: margin-left 0.3s ease-in-out;
+    background-color: #ffffff;
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(46, 125, 50, 0.06) 0px, transparent 50%),
+        radial-gradient(at 90% 80%, rgba(168, 230, 29, 0.08) 0px, transparent 50%);
+    background-size: 100% 100%, 100% 100%;
 
     @media (max-width: 768px) {
         margin-left: 0;
@@ -88,10 +93,11 @@ export const AddButton = styled.button`
     color: #2E7D32;
     border: 1px solid #2E7D32;
     padding: 8px 20px;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    transition: all 0.2s;
+    font-weight: 500;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -102,6 +108,8 @@ export const AddButton = styled.button`
             radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
             linear-gradient(135deg, #0b1a0f 0%, #112a17 50%, #050d08 100%);
         color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
     }
 `;
 
