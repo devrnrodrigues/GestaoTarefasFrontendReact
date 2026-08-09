@@ -57,7 +57,7 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose }) => 
       <FooterContainer>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '15px' }}>
           <ProgressBar><ProgressFill $width={task.progress} /></ProgressBar>
-          <span style={{ fontSize: '14px', fontWeight: '600' }}>{task.progress}%</span>
+          <span style={{ fontSize: '14px', fontWeight: '600', marginTop: '20px' }}>{task.progress}%</span>
         </div>
         <AddButton>+ Adicionar tarefa</AddButton>
       </FooterContainer>

@@ -5,6 +5,8 @@ export const MainContentWrapper = styled.main`
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding:0 15px;
+    min-height: 100vh;
     transition: margin-left 0.3s ease-in-out;
 
     @media (max-width: 768px) {
@@ -15,8 +17,12 @@ export const MainContentWrapper = styled.main`
 export const DashboardArea = styled.div`
     padding: 40px;
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
+    max-width: 1525px;
+    margin: 50px auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 export const DashboardHeader = styled.div`
@@ -65,7 +71,7 @@ export const ViewSelector = styled.div`
 `;
 
 export const AddButton = styled.button`
-    background-color: white;
+    background: transparent;
     color: #2E7D32;
     border: 1px solid #2E7D32;
     padding: 8px 20px;
@@ -87,11 +93,5 @@ export const CardGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 25px;
-    justify-content: start;
-    width: auto;
-
-    @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-        justify-items: center;
-    }
+    justify-content: center;
 `;

@@ -1,22 +1,32 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
-    background-color: white;
+    background: radial-gradient(
+    circle at center,
+    #ffffff 0%,  
+    #fbfbfb 25%,   
+    #f5f5f5 60%,   
+    #eaeaea 100%   
+  );
     padding: 20px 40px;
-    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1
+    );
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 100;
+    right: 0;
+    left: 260px;
+    z-index: 2;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 
     @media (max-width: 768px) {
+        left: 0;
         background: 
-                radial-gradient(circle at 80% 20%, rgba(168, 230, 29, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
-                linear-gradient(135deg, #0b1a0f 0%, #112a17 50%, #050d08 100%);
+    radial-gradient(circle at 80% 20%, rgba(168, 230, 29, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(11, 26, 15, 0.85) 0%, rgba(17, 42, 23, 0.85) 50%, rgba(5, 13, 8, 0.85) 100%);
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
 `;
@@ -79,7 +89,7 @@ export const SearchInput = styled.input`
     }
 
     &:focus {
-        border-bottom-color: #0077B6;
+        border-bottom-color: green;
     }
 
     @media (max-width: 768px) {

@@ -2,11 +2,8 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const CardContainer = styled(motion.div)`
-    background: rgba(255, 255, 255, 0.8
+    background: rgba(255, 255, 255, 1
     );
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -14,7 +11,7 @@ export const CardContainer = styled(motion.div)`
     border-radius: 30px;
     padding: 40px;
     color: #333333;
-    box-shadow: 0 4px 5px rgba(0,0,0,0.09);
+    box-shadow: 0 4px 5px rgba(0,0,0,0.3);
     overflow: hidden;
     position: relative;
     justify-content: space-between;
@@ -23,8 +20,9 @@ export const CardContainer = styled(motion.div)`
     will-change: transform;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.65);
-        box-shadow: 0 16px 32px rgba(46, 125, 50, 0.08);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+        backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
     }
 `;
 
