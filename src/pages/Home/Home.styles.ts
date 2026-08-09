@@ -5,7 +5,7 @@ export const MainContentWrapper = styled.main`
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding:0 15px;
+    padding: 0 15px;
     min-height: 100vh;
     transition: margin-left 0.3s ease-in-out;
 
@@ -30,12 +30,20 @@ export const DashboardHeader = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
+
+    @media (max-width: 768px) {
+        justify-content: center;
+    }
 `;
 
 export const DashboardTitle = styled.h1`
     font-size: 32px;
     font-weight: 400;
     color: #333;
+
+    @media (max-width: 868px) {
+        display: none;
+    }
 `;
 
 export const ViewSelector = styled.div`
@@ -44,6 +52,8 @@ export const ViewSelector = styled.div`
     color: #777;
     gap: 15px;
     align-items: center;
+    justify-content: center;
+    margin-top: 30px;
 
     button {
         background: none;
@@ -53,6 +63,9 @@ export const ViewSelector = styled.div`
         cursor: pointer;
         background: transparent;
         transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
 
         &:hover:not(:disabled) {
             color: #2E7D32;
@@ -79,6 +92,9 @@ export const AddButton = styled.button`
     cursor: pointer;
     font-size: 14px;
     transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
     &:hover {
         background: 

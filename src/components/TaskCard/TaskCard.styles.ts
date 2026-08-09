@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const CardContainer = styled(motion.div)`
-    background: rgba(255, 255, 255, 1
-    );
+    background: rgba(255, 255, 255, 1);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -22,22 +21,23 @@ export const CardContainer = styled(motion.div)`
     &:hover {
         box-shadow: 0 16px 32px rgba(0,0,0,0.2);
         backdrop-filter: blur(0);
-    -webkit-backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
     }
 `;
 
-export const CardInfoIcon = styled.svg`
+export const CardInfoIcon = styled.span`
     position: absolute;
     top: 30px;
     right: 30px;
-    width: 30px;
-    height: 24px;
     color: #888;
     cursor: pointer;
-    transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s ease, transform 0.2s ease;
 
     &:hover {
-        color: #333;
+        color: #2E7D32;
+        transform: scale(1.1);
     }
 `;
 

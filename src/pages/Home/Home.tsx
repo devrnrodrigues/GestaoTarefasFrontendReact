@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
 import { Header } from '../../components/Header/Header';
 import { TaskCardView } from '../../components/TaskCardView/TaskCardView';
@@ -35,37 +36,37 @@ const initialTasks: Task[] = [
     progress: 49, 
     description: 'Conceitos avançados de Frontend',
     subtasks: [
-  { id: '1', title: 'Gerenciamento de estado;', completed: false },
-  { id: '2', title: 'Testes de Frontend;', completed: false },
-  { id: '3', title: 'Performance Web;', completed: false },
-  { id: '4', title: 'Segurança no Frontend (XSS, CSRF);', completed: false },
-  { id: '5', title: 'SSR / SSG;', completed: false },
-  { id: '6', title: 'Microfrontends;', completed: false },
-  { id: '7', title: 'Interface de Usuário (UI);', completed: false },
-  { id: '8', title: 'Experiência de Usuário (UX);', completed: false },
-  { id: '9', title: 'Usabilidade;', completed: false },
-  { id: '10', title: 'Responsividade;', completed: false },
-  { id: '11', title: 'Consumo de APIs;', completed: false },
-  { id: '12', title: 'HTML semântico;', completed: false },
-  { id: '13', title: 'Intencionalidade;', completed: false },
-  { id: '14', title: 'CSS (Flexbox, Grid);', completed: false },
-  { id: '15', title: 'Acessibilidade;', completed: false },
-  { id: '16', title: 'Pré-processadores CSS (Sass, Less);', completed: false },
-  { id: '17', title: 'Frameworks CSS (Tailwind, Bootstrap);', completed: false },
-  { id: '18', title: 'Clean Code e Boas Práticas;', completed: false },
-  { id: '19', title: 'TypeScript avançado;', completed: false },
-  { id: '20', title: 'Componentização e Design System;', completed: false },
-  { id: '21', title: 'Build Tools (Vite, Webpack);', completed: false },
-  { id: '22', title: 'Controle de Versão (Git e GitHub);', completed: false },
-  { id: '23', title: 'CI/CD para Frontend;', completed: false },
-  { id: '24', title: 'Web Vitals e Otimização de SEO;', completed: false },
-  { id: '25', title: 'PWA (Progressive Web Apps);', completed: false },
-  { id: '26', title: 'WebSockets e Tempo Real;', completed: false },
-  { id: '27', title: 'Internacionalização (i18n);', completed: false },
-  { id: '28', title: 'Animações e Framer Motion;', completed: false },
-  { id: '29', title: 'Arquitetura de Pastas e Escalabilidade;', completed: false },
-  { id: '30', title: 'Documentação de Código e Histórias;', completed: false },
-]
+      { id: '1', title: 'Gerenciamento de estado;', completed: false },
+      { id: '2', title: 'Testes de Frontend;', completed: false },
+      { id: '3', title: 'Performance Web;', completed: false },
+      { id: '4', title: 'Segurança no Frontend (XSS, CSRF);', completed: false },
+      { id: '5', title: 'SSR / SSG;', completed: false },
+      { id: '6', title: 'Microfrontends;', completed: false },
+      { id: '7', title: 'Interface de Usuário (UI);', completed: false },
+      { id: '8', title: 'Experiência de Usuário (UX);', completed: false },
+      { id: '9', title: 'Usabilidade;', completed: false },
+      { id: '10', title: 'Responsividade;', completed: false },
+      { id: '11', title: 'Consumo de APIs;', completed: false },
+      { id: '12', title: 'HTML semântico;', completed: false },
+      { id: '13', title: 'Intencionalidade;', completed: false },
+      { id: '14', title: 'CSS (Flexbox, Grid);', completed: false },
+      { id: '15', title: 'Acessibilidade;', completed: false },
+      { id: '16', title: 'Pré-processadores CSS (Sass, Less);', completed: false },
+      { id: '17', title: 'Frameworks CSS (Tailwind, Bootstrap);', completed: false },
+      { id: '18', title: 'Clean Code e Boas Práticas;', completed: false },
+      { id: '19', title: 'TypeScript avançado;', completed: false },
+      { id: '20', title: 'Componentização e Design System;', completed: false },
+      { id: '21', title: 'Build Tools (Vite, Webpack);', completed: false },
+      { id: '22', title: 'Controle de Versão (Git e GitHub);', completed: false },
+      { id: '23', title: 'CI/CD para Frontend;', completed: false },
+      { id: '24', title: 'Web Vitals e Otimização de SEO;', completed: false },
+      { id: '25', title: 'PWA (Progressive Web Apps);', completed: false },
+      { id: '26', title: 'WebSockets e Tempo Real;', completed: false },
+      { id: '27', title: 'Internacionalização (i18n);', completed: false },
+      { id: '28', title: 'Animações e Framer Motion;', completed: false },
+      { id: '29', title: 'Arquitetura de Pastas e Escalabilidade;', completed: false },
+      { id: '30', title: 'Documentação de Código e Histórias;', completed: false },
+    ]
   },
   { category: 'Engenharia de Software', title: 'Backend', progress: 39, description: 'APIs e arquitetura de servidores' },
   { category: 'Engenharia de Software', title: 'Banco de Dados', progress: 19, description: 'Modelagem e otimização' },
@@ -110,17 +111,10 @@ export const Home: React.FC = () => {
           ) : (
             <DashboardArea key="dashboard-grid">
               <DashboardHeader>
-                <DashboardTitle>Início</DashboardTitle>
-                <ViewSelector>
-                  <button id="prevBtn" onClick={handlePrev} disabled={currentPage === 1}>
-                    Voltar
-                  </button>
-                  <span id="pageIndicator">{currentPage} / {totalPages}</span>
-                  <button id="nextBtn" onClick={handleNext} disabled={currentPage === totalPages}>
-                    Próximo
-                  </button>
-                </ViewSelector>
-                <AddButton> + Adicionar Card</AddButton>
+                <DashboardTitle>Gerencie suas metas</DashboardTitle>
+                <AddButton>
+                  <Plus size={16} /> Adicionar Meta
+                </AddButton>
               </DashboardHeader>
 
               <CardGrid id="cardGrid">
@@ -142,6 +136,16 @@ export const Home: React.FC = () => {
                   );
                 })}
               </CardGrid>
+
+              <ViewSelector>
+                <button id="prevBtn" onClick={handlePrev} disabled={currentPage === 1}>
+                  <ChevronLeft size={16} /> Voltar
+                </button>
+                <span id="pageIndicator">{currentPage} / {totalPages}</span>
+                <button id="nextBtn" onClick={handleNext} disabled={currentPage === totalPages}>
+                  Próximo <ChevronRight size={16} />
+                </button>
+              </ViewSelector>
             </DashboardArea>
           )}
         </AnimatePresence>

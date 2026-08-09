@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const MotionViewContainer = styled(motion.div)`
-
   max-width: 1500px;
   width: 100%;
   margin: 100px auto;
@@ -94,10 +93,22 @@ export const ProgressFill = styled.div<{ $width: number }>`
 
 export const AddButton = styled.button`
   background: transparent;
-  border: 1px solid #ccc;
-  padding: 8px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
+    color: #2E7D32;
+    border: 1px solid #2E7D32;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    &:hover {
+        background: 
+            radial-gradient(circle at 80% 20%, rgba(168, 230, 29, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
+            linear-gradient(135deg, #0b1a0f 0%, #112a17 50%, #050d08 100%);
+        color: white;
+    }
 `;

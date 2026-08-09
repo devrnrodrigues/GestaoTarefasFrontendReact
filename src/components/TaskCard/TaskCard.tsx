@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Edit, Trash2, ArrowLeft, Info } from 'lucide-react';
 import {
   CardContainer,
   CardInfoIcon,
@@ -93,42 +94,76 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           <>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
               <div style={{ display: "flex", gap: "16px", cursor: "pointer" }}>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  style={{ width: "20px", height: "20px", color: "#333" }}
+                <span
                   onClick={(e) => {
                     e.stopPropagation();
                     onEdit?.();
                   }}
+                  style={{ 
+                    display: "inline-flex", 
+                    alignItems: "center", 
+                    color: "#333",
+                    transition: "color 0.2s ease, transform 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#2E7D32";
+                    e.currentTarget.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "#333";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
                 >
-                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                </svg>
+                  <Edit size={20} />
+                </span>
 
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  style={{ width: "20px", height: "20px", color: "#333" }}
+                <span
                   onClick={(e) => {
                     e.stopPropagation();
                     onDelete?.();
                   }}
+                  style={{ 
+                    display: "inline-flex", 
+                    alignItems: "center", 
+                    color: "#333",
+                    transition: "color 0.2s ease, transform 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#D32F2F";
+                    e.currentTarget.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "#333";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
                 >
-                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-                </svg>
+                  <Trash2 size={20} />
+                </span>
               </div>
 
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                style={{ width: "24px", height: "24px", color: "#333", cursor: "pointer" }}
+              <span
                 onClick={(e) => {
                   e.stopPropagation();
                   flip(false);
                 }}
+                style={{ 
+                  display: "inline-flex", 
+                  alignItems: "center", 
+                  color: "#333", 
+                  cursor: "pointer",
+                  transition: "color 0.2s ease, transform 0.2s ease"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#2E7D32";
+                  e.currentTarget.style.transform = "scale(1.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#333";
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
               >
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-              </svg>
+                <ArrowLeft size={24} />
+              </span>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", margin: "auto 0" }}>
@@ -143,14 +178,12 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         ) : (
           <>
             <CardInfoIcon
-              viewBox="0 0 24 24"
-              fill="currentColor"
               onClick={(e) => {
                 e.stopPropagation();
                 flip(true);
               }}
             >
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+              <Info size={26} />
             </CardInfoIcon>
             <div>
               <CardCategory>{category}</CardCategory>

@@ -47,7 +47,7 @@ export const LogoIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    fill: #1B5E20;
+    color: #1B5E20;
 `;
 
 export const LogoText = styled.span`
@@ -93,11 +93,10 @@ export const NavLinks = styled.ul`
     }
 `;
 
-export const NavIcon = styled.svg`
-    width: 20px;
-    height: 20px;
+export const NavIcon = styled.span`
+    display: inline-flex;
+    align-items: center;
     margin-right: 15px;
-    fill: currentColor;
     flex-shrink: 0;
 `;
 
