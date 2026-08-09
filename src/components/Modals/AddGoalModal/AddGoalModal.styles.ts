@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import DatePicker from 'react-datepicker';
 
 export const ModalOverlay = styled(motion.div)`
     position: fixed;
@@ -164,6 +165,40 @@ export const TextArea = styled.textarea`
 
     &:focus {
         border-color: #2E7D32;
+    }
+`;
+
+export const DatePickerWrapper = styled.div`
+    width: 100%;
+
+    .react-datepicker-wrapper {
+        width: 100%;
+        display: block;
+    }
+
+    .react-datepicker__input-container {
+        width: 100%;
+        display: block;
+    }
+
+    input {
+        padding: 9px 12px;
+        border: 1px solid white;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #0f172a;
+        outline: none;
+        background: rgba(255, 255, 255, 0.85);
+        width: 100%;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+
+        &:focus {
+            border-color: #2E7D32;
+        }
+        &::placeholder {
+            color: #94a3b8;
+        }
     }
 `;
 

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { X, Plus, Trash2, Layers, FileText, CheckSquare, AlignLeft } from 'lucide-react';
+import DatePicker from 'react-datepicker';
+import { ptBR } from 'date-fns/locale'; // <-- 1. Importe o idioma pt-BR
+import 'react-datepicker/dist/react-datepicker.css';
+import { X, Plus, Trash2, Layers, FileText, CheckSquare, AlignLeft, Calendar } from 'lucide-react';
 import {
     ModalOverlay,
     ModalContainer,
@@ -14,7 +17,8 @@ import {
     AddTaskButton,
     ModalFooter,
     SubmitButton,
-    CancelButton
+    CancelButton,
+    DatePickerWrapper
 } from './AddGoalModal.styles';
 
 interface TaskItem {
@@ -28,6 +32,7 @@ interface Task {
     title: string;
     progress: number;
     description: string;
+    deadline?: string;
     subtasks?: TaskItem[];
 }
 
@@ -41,6 +46,7 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
     const [newCategory, setNewCategory] = useState('');
     const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [newTasks, setNewTasks] = useState<string[]>(['']);
 
     const handleAddTaskInput = () => {
@@ -73,6 +79,7 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
             category: newCategory,
             title: newTitle,
             description: newDescription,
+            deadline: selectedDate ? selectedDate.toLocaleDateString('pt-BR') : undefined,
             progress: 0,
             subtasks: formattedTasks.length > 0 ? formattedTasks : undefined,
         };
@@ -81,6 +88,7 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
         setNewCategory('');
         setNewTitle('');
         setNewDescription('');
+        setSelectedDate(null);
         setNewTasks(['']);
         onClose();
     };
@@ -146,10 +154,27 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
                             </Label>
                             <TextArea 
                                 id="description-input"
-                                placeholder="Adicione uma descrição..." 
+                                placeholder="Adicione uma descrição (opcional)..." 
                                 value={newDescription} 
                                 onChange={(e) => setNewDescription(e.target.value)} 
                             />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label htmlFor="deadline-input">
+                                <Calendar size={14} /> Prazo
+                            </Label>
+                            <DatePickerWrapper>
+                                <DatePicker
+                                    id="deadline-input"
+                                    selected={selectedDate}
+                                    onChange={(date: Date | null) => setSelectedDate(date)}
+                                    dateFormat="dd/MM/yyyy"
+                                    placeholderText="DD/MM/AAAA"
+                                    locale={ptBR} // <-- 2. Atribua o locale aqui
+                                    isClearable
+                                />
+                            </DatePickerWrapper>
                         </FormGroup>
 
                         <FormGroup>
@@ -162,7 +187,7 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
                                         <Input 
                                             id={`task-input-${index}`}
                                             type="text" 
-                                            placeholder="Adicione uma tarefa..." 
+                                            placeholder="Adicione uma tarefa (opcional)..." 
                                             value={taskItem} 
                                             onChange={(e) => handleTaskChange(index, e.target.value)} 
                                         />
@@ -195,5 +220,5 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
                 </form>
             </ModalContainer>
         </ModalOverlay>
-    );
+    ); 
 };

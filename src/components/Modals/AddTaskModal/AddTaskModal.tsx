@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Plus, Trash2, CheckSquare } from 'lucide-react';
+import { X, Plus, Trash2, CheckSquare, FileText } from 'lucide-react';
 import {
     ModalOverlay,
     ModalContainer,
@@ -9,7 +9,9 @@ import {
     FormGroup,
     Label,
     Input,
+    TextArea,
     TaskRow,
+    TaskInputsWrapper,
     AddTaskButton,
     ModalFooter,
     SubmitButton,
@@ -19,15 +21,8 @@ import {
 interface TaskItem {
     id: string;
     title: string;
+    description?: string;
     completed: boolean;
-}
-
-interface Task {
-    category: string;
-    title: string;
-    progress: number;
-    description: string;
-    subtasks?: TaskItem[];
 }
 
 interface AddTaskModalProps {
@@ -36,16 +31,21 @@ interface AddTaskModalProps {
     onAddTask: (newTasks: TaskItem[]) => void;
 }
 
+interface TaskInputData {
+    title: string;
+    description: string;
+}
+
 export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }) => {
-    const [newTasks, setNewTasks] = useState<string[]>(['']);
+    const [newTasks, setNewTasks] = useState<TaskInputData[]>([{ title: '', description: '' }]);
 
     const handleAddTaskInput = () => {
-        setNewTasks([...newTasks, '']);
+        setNewTasks([...newTasks, { title: '', description: '' }]);
     };
 
-    const handleTaskChange = (index: number, value: string) => {
+    const handleTaskChange = (index: number, field: 'title' | 'description', value: string) => {
         const updated = [...newTasks];
-        updated[index] = value;
+        updated[index][field] = value;
         setNewTasks(updated);
     };
 
@@ -57,17 +57,18 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
         e.preventDefault();
 
         const formattedTasks: TaskItem[] = newTasks
-            .filter((st) => st.trim() !== '')
-            .map((st, idx) => ({
+            .filter((item) => item.title.trim() !== '')
+            .map((item, idx) => ({
                 id: String(Date.now() + idx),
-                title: st.endsWith(';') ? st : `${st};`,
+                title: item.title.endsWith(';') ? item.title : `${item.title};`,
+                description: item.description.trim() !== '' ? item.description : undefined,
                 completed: false,
             }));
 
         if (formattedTasks.length === 0) return;
 
         onAddTask(formattedTasks);
-        setNewTasks(['']);
+        setNewTasks([{ title: '', description: '' }]);
         onClose();
     };
 
@@ -105,13 +106,22 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
                             <div className="tasks-container">
                                 {newTasks.map((taskItem, index) => (
                                     <TaskRow key={index}>
-                                        <Input 
-                                            id={`task-input-${index}`}
-                                            type="text" 
-                                            placeholder="Adicione uma tarefa..." 
-                                            value={taskItem} 
-                                            onChange={(e) => handleTaskChange(index, e.target.value)} 
-                                        />
+                                        <TaskInputsWrapper>
+                                            <Input 
+                                                id={`task-input-${index}`}
+                                                type="text" 
+                                                placeholder="Adicione uma tarefa..." 
+                                                value={taskItem.title} 
+                                                onChange={(e) => handleTaskChange(index, 'title', e.target.value)} 
+                                            />
+                                            <TextArea 
+                                                id={`task-desc-${index}`}
+                                                placeholder="Adicione uma descrição (opcional)..."
+                                                value={taskItem.description}
+                                                onChange={(e) => handleTaskChange(index, 'description', e.target.value)}
+                                                rows={2}
+                                            />
+                                        </TaskInputsWrapper>
                                         {newTasks.length > 1 && (
                                             <button 
                                                 type="button" 

@@ -24,7 +24,7 @@ export const ModalContainer = styled(motion.div)`
     padding: 28px;
     border-radius: 16px;
     width: 100%;
-    max-width: 400px;
+    max-width: 440px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@ export const ModalContainer = styled(motion.div)`
 
     .modal-body {
         overflow-y: auto;
-        max-height: 55vh;
+        max-height: 60vh;
         padding-right: 4px;
         margin-right: -4px;
         
@@ -109,7 +109,7 @@ export const FormGroup = styled.div`
     .tasks-container {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
     }
 `;
 
@@ -128,7 +128,6 @@ export const Label = styled.label`
 
 export const Input = styled.input`
     padding: 9px 12px;
-    border: none;
     border: 1px solid white;
     border-radius: 8px;
     font-size: 14px;
@@ -146,14 +145,42 @@ export const Input = styled.input`
     }
 `;
 
+export const TextArea = styled.textarea`
+    padding: 8px 12px;
+    border: 1px solid white;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.85);
+    resize: vertical;
+    font-family: inherit;
+
+    &::placeholder {
+        color: #94a3b8;
+    }
+
+    &:focus {
+        border: 1px solid #2E7D32;
+    }
+`;
+
+export const TaskInputsWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+`;
+
 export const TaskRow = styled.div`
     display: flex;
     gap: 8px;
-    align-items: center;
-
-    input {
-        flex: 1;
-    }
+    align-items: flex-start;
+    background: rgba(248, 250, 252, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
 
     button {
         background: #fef2f2;
@@ -166,6 +193,7 @@ export const TaskRow = styled.div`
         align-items: center;
         justify-content: center;
         transition: all 0.2s;
+        margin-top: 1px;
 
         &:hover {
             background: #fee2e2;
