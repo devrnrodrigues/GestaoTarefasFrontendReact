@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import DatePicker from 'react-datepicker';
 
 export const ModalOverlay = styled(motion.div)`
     position: fixed;

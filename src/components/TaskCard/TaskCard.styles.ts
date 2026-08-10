@@ -57,11 +57,12 @@ export const CardTitle = styled.div`
 `;
 
 export const ProgressContainer = styled.div`
-    height: 10px;
+    height: 14px;
     background-color: #E0E0E0;
-    border-radius: 5px;
+    border-radius: 7px;
     overflow: hidden;
     margin-bottom: 8px;
+    position: relative;
 `;
 
 export const ProgressBar = styled.div<{ $progress: number }>`
@@ -69,7 +70,22 @@ export const ProgressBar = styled.div<{ $progress: number }>`
     background-color: #66BB6A;
     width: ${({ $progress }) => `${$progress}%`};
     transition: width 0.6s ease-out;
-    border-radius: 5px;
+    border-radius: 7px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 24px;
+`;
+
+export const ProgressTextInside = styled.span`
+    position: absolute;
+    right: 6px;
+    font-size: 9px;
+    color: black;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
 `;
 
 export const ProgressText = styled.div`

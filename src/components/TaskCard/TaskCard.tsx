@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Edit, Trash2, ArrowLeft, Info } from 'lucide-react';
+import { Edit, Trash2, ArrowLeft, Info, Calendar } from 'lucide-react';
 import {
   CardContainer,
   CardInfoIcon,
@@ -8,7 +8,7 @@ import {
   CardTitle,
   ProgressContainer,
   ProgressBar,
-  ProgressText
+  ProgressTextInside
 } from './TaskCard.styles';
 
 interface TaskCardProps {
@@ -16,6 +16,7 @@ interface TaskCardProps {
   title: string;
   progress: number;
   description: string;
+  deadline?: string;
   onEdit?: () => void;
   onDelete?: () => void;
 }
@@ -25,6 +26,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   title,
   progress,
   description,
+  deadline,
   onEdit,
   onDelete
 }) => {
@@ -173,7 +175,10 @@ export const TaskCard: React.FC<TaskCardProps> = ({
               </CardTitle>
             </div>
 
-            <div />
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#666", fontWeight: "500" }}>
+              <Calendar size={15} style={{ color: "#2E7D32" }} />
+              <span>{deadline ? `Prazo: ${deadline}` : "Sem prazo"}</span>
+            </div>
           </>
         ) : (
           <>
@@ -191,9 +196,10 @@ export const TaskCard: React.FC<TaskCardProps> = ({
             </div>
             <div>
               <ProgressContainer>
-                <ProgressBar $progress={progress} />
+                <ProgressBar $progress={progress}>
+                  <ProgressTextInside>{progress}%</ProgressTextInside>
+                </ProgressBar>
               </ProgressContainer>
-              <ProgressText>{progress}%</ProgressText>
             </div>
           </>
         )}

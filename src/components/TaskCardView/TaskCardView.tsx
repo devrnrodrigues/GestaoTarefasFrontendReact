@@ -29,6 +29,10 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose, onAdd
     onAddTasks?.(newTasks);
   };
 
+  const subtasksList = task.subtasks || [];
+  const completedCount = subtasksList.filter(st => st.completed).length;
+  const totalCount = subtasksList.length;
+
   return (
     <>
       <MotionViewContainer
@@ -85,7 +89,7 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose, onAdd
         <Title>{task.title}</Title>
 
         <ListContainer>
-          {task.subtasks?.map((sub) => (
+          {subtasksList.map((sub) => (
             <ListItem key={sub.id}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <input type="checkbox" checked={sub.completed} style={{ cursor: 'pointer' }} />
@@ -124,13 +128,18 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose, onAdd
         </ListContainer>
 
         <FooterContainer>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '15px' }}>
-            <ProgressBar><ProgressFill $width={task.progress} /></ProgressBar>
-            <span style={{ fontSize: '14px', fontWeight: '600', marginTop: '20px' }}>{task.progress}%</span>
+          <div style={{ fontSize: '12px', color: '#666', fontWeight: '500', marginBottom: '6px', textAlign: 'left' }}>
+            {completedCount}/{totalCount} tarefas concluídas
           </div>
-          <AddButton onClick={() => setIsAddTaskModalOpen(true)}>
-            <Plus size={16} /> Adicionar tarefa
-          </AddButton>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
+            <ProgressBar><ProgressFill $width={task.progress} /></ProgressBar>
+            <span style={{ fontSize: '14px', fontWeight: '600' }}>{task.progress}%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+            <AddButton onClick={() => setIsAddTaskModalOpen(true)}>
+              <Plus size={16} /> Adicionar tarefa
+            </AddButton>
+          </div>
         </FooterContainer>
       </MotionViewContainer>
 

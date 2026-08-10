@@ -27,6 +27,7 @@ interface Task {
     title: string;
     progress: number;
     description: string;
+    deadline?: string;
     subtasks?: SubTask[];
 }
 
@@ -36,44 +37,115 @@ const initialTasks: Task[] = [
         title: 'Frontend', 
         progress: 49, 
         description: 'Conceitos avançados de Frontend',
+        deadline: '15/12/2026',
         subtasks: [
-            { id: '1', title: 'Gerenciamento de estado;', completed: false },
-            { id: '2', title: 'Testes de Frontend;', completed: false },
-            { id: '3', title: 'Performance Web;', completed: false },
-            { id: '4', title: 'Segurança no Frontend (XSS, CSRF);', completed: false },
+            { id: '1', title: 'Gerenciamento de estado;', completed: true },
+            { id: '2', title: 'Testes de Frontend;', completed: true },
+            { id: '3', title: 'Performance Web;', completed: true },
+            { id: '4', title: 'Segurança no Frontend (XSS, CSRF);', completed: true },
             { id: '5', title: 'SSR / SSG;', completed: false },
             { id: '6', title: 'Microfrontends;', completed: false },
             { id: '7', title: 'Interface de Usuário (UI);', completed: false },
             { id: '8', title: 'Experiência de Usuário (UX);', completed: false },
             { id: '9', title: 'Usabilidade;', completed: false },
             { id: '10', title: 'Responsividade;', completed: false },
-            { id: '11', title: 'Consumo de APIs;', completed: false },
-            { id: '12', title: 'HTML semântico;', completed: false },
-            { id: '13', title: 'Intencionalidade;', completed: false },
-            { id: '14', title: 'CSS (Flexbox, Grid);', completed: false },
-            { id: '15', title: 'Acessibilidade;', completed: false },
-            { id: '16', title: 'Pré-processadores CSS (Sass, Less);', completed: false },
-            { id: '17', title: 'Frameworks CSS (Tailwind, Bootstrap);', completed: false },
-            { id: '18', title: 'Clean Code e Boas Práticas;', completed: false },
-            { id: '19', title: 'TypeScript avançado;', completed: false },
-            { id: '20', title: 'Componentização e Design System;', completed: false },
-            { id: '21', title: 'Build Tools (Vite, Webpack);', completed: false },
-            { id: '22', title: 'Controle de Versão (Git e GitHub);', completed: false },
-            { id: '23', title: 'CI/CD para Frontend;', completed: false },
-            { id: '24', title: 'Web Vitals e Otimização de SEO;', completed: false },
-            { id: '25', title: 'PWA (Progressive Web Apps);', completed: false },
-            { id: '26', title: 'WebSockets e Tempo Real;', completed: false },
-            { id: '27', title: 'Internacionalização (i18n);', completed: false },
-            { id: '28', title: 'Animações e Framer Motion;', completed: false },
-            { id: '29', title: 'Arquitetura de Pastas e Escalabilidade;', completed: false },
-            { id: '30', title: 'Documentação de Código e Histórias;', completed: false },
         ]
     },
-    { category: 'Engenharia de Software', title: 'Backend', progress: 39, description: 'APIs e arquitetura de servidores' },
-    { category: 'Engenharia de Software', title: 'Banco de Dados', progress: 19, description: 'Modelagem e otimização' },
-    { category: 'Engenharia de Software', title: 'Nuvem', progress: 49, description: 'Deploy e infraestrutura cloud' },
-    { category: 'Engenharia de Software', title: 'Versionamento', progress: 57, description: 'Git avançado' },
-    { category: 'Engenharia de Software', title: 'Testes', progress: 27, description: 'Testes unitários e e2e' },
+    { 
+        category: 'Engenharia de Software', 
+        title: 'Backend', 
+        progress: 39, 
+        description: 'APIs e arquitetura de servidores',
+        deadline: '20/11/2026',
+        subtasks: [
+            { id: '1', title: 'Node.js;', completed: true },
+            { id: '2', title: 'Express;', completed: true },
+            { id: '3', title: 'JWT Auth;', completed: true },
+            { id: '4', title: 'REST APIs;', completed: false },
+            { id: '5', title: 'GraphQL;', completed: false },
+            { id: '6', title: 'Microservices;', completed: false },
+            { id: '7', title: 'Docker;', completed: false },
+            { id: '8', title: 'Swagger;', completed: false },
+            { id: '9', title: 'Redis;', completed: false },
+            { id: '10', title: 'Testes unitários;', completed: false },
+        ]
+    },
+    { 
+        category: 'Engenharia de Software', 
+        title: 'Banco de Dados', 
+        progress: 19, 
+        description: 'Modelagem e otimização',
+        deadline: '10/10/2026',
+        subtasks: [
+            { id: '1', title: 'SQL básico;', completed: true },
+            { id: '2', title: 'PostgreSQL;', completed: true },
+            { id: '3', title: 'Indexes;', completed: false },
+            { id: '4', title: 'Transações;', completed: false },
+            { id: '5', title: 'NoSQL;', completed: false },
+            { id: '6', title: 'MongoDB;', completed: false },
+            { id: '7', title: 'Redis cache;', completed: false },
+            { id: '8', title: 'Modelagem ER;', completed: false },
+            { id: '9', title: 'Migrations;', completed: false },
+            { id: '10', title: 'Backup e Restore;', completed: false },
+        ]
+    },
+    { 
+        category: 'Engenharia de Software', 
+        title: 'Nuvem', 
+        progress: 49, 
+        description: 'Deploy e infraestrutura cloud',
+        deadline: '05/01/2027',
+        subtasks: [
+            { id: '1', title: 'AWS básico;', completed: true },
+            { id: '2', title: 'EC2;', completed: true },
+            { id: '3', title: 'S3 buckets;', completed: true },
+            { id: '4', title: 'IAM;', completed: true },
+            { id: '5', title: 'Serverless;', completed: false },
+            { id: '6', title: 'Lambda;', completed: false },
+            { id: '7', title: 'CloudFront;', completed: false },
+            { id: '8', title: 'Route 53;', completed: false },
+            { id: '9', title: 'Docker Swarm;', completed: false },
+            { id: '10', title: 'Kubernetes;', completed: false },
+        ]
+    },
+    { 
+        category: 'Engenharia de Software', 
+        title: 'Versionamento', 
+        progress: 57, 
+        description: 'Git avançado',
+        deadline: '30/09/2026',
+        subtasks: [
+            { id: '1', title: 'Git init;', completed: true },
+            { id: '2', title: 'Branching;', completed: true },
+            { id: '3', title: 'Rebase;', completed: true },
+            { id: '4', title: 'Cherry-pick;', completed: true },
+            { id: '5', title: 'Git flow;', completed: true },
+            { id: '6', title: 'GitHub Actions;', completed: false },
+            { id: '7', title: 'Pull Requests;', completed: false },
+            { id: '8', title: 'Code Review;', completed: false },
+            { id: '9', title: 'Submodules;', completed: false },
+            { id: '10', title: 'Git hooks;', completed: false },
+        ]
+    },
+    { 
+        category: 'Engenharia de Software', 
+        title: 'Testes', 
+        progress: 27, 
+        description: 'Testes unitários e e2e',
+        deadline: '18/11/2026',
+        subtasks: [
+            { id: '1', title: 'Jest;', completed: true },
+            { id: '2', title: 'Vitest;', completed: true },
+            { id: '3', title: 'React Testing Library;', completed: false },
+            { id: '4', title: 'Cypress;', completed: false },
+            { id: '5', title: 'Playwright;', completed: false },
+            { id: '6', title: 'TDD;', completed: false },
+            { id: '7', title: 'Mocking;', completed: false },
+            { id: '8', title: 'Coverage;', completed: false },
+            { id: '9', title: 'E2E testing;', completed: false },
+            { id: '10', title: 'Integration tests;', completed: false },
+        ]
+    },
 ];
 
 export const Home: React.FC = () => {
@@ -127,6 +199,7 @@ export const Home: React.FC = () => {
                             <CardGrid id="cardGrid">
                                 {currentTasks.map((task, index) => {
                                     const absoluteIndex = startIndex + index;
+
                                     return (
                                         <div 
                                             key={absoluteIndex} 
@@ -138,6 +211,7 @@ export const Home: React.FC = () => {
                                                 title={task.title}
                                                 progress={task.progress}
                                                 description={task.description}
+                                                deadline={task.deadline}
                                             />
                                         </div>
                                     );
@@ -157,7 +231,6 @@ export const Home: React.FC = () => {
                     )}
                 </AnimatePresence>
 
-                {/* Correção feita aqui: Adicionada a verificação {isModalOpen && ...} dentro do AnimatePresence */}
                 <AnimatePresence>
                     {isModalOpen && (
                         <AddGoalModal 
