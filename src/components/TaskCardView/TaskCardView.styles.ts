@@ -70,8 +70,8 @@ export const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 14px;
-    padding: 4px 26px 4px 6px;
-
+    padding: 4px 6px 4px 6px;
+    scrollbar-width: none;
 `;
 
 export const ListItem = styled.div<{ $isExpandedOrEditing: boolean }>`
