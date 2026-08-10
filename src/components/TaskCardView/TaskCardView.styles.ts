@@ -5,7 +5,7 @@ export const MotionViewContainer = styled(motion.div)`
     max-width: 1300px;
     width: 100%;
     margin: 100px auto 0 auto;
-    padding: 40px;
+    padding: 20px;
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -70,21 +70,9 @@ export const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 14px;
-    padding: 4px 26px 4px 6px;
+    padding: 4px 5px 4px 5px;
+    scrollbar-width: none;
 
-    &::-webkit-scrollbar {
-        width: 8px; 
-    }
-
-    &::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.05); 
-        border-radius: 4px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.2); 
-        border-radius: 4px;
-        
         &:hover {
             background: rgba(0, 0, 0, 0.4);
         }

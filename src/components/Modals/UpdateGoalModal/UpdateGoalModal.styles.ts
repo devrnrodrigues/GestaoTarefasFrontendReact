@@ -41,19 +41,8 @@ export const ModalContainer = styled(motion.div)`
     .modal-body {
         overflow-y: auto;
         max-height: 55vh;
-        padding-right: 14px;
-        margin-right: -4px;
         
-        &::-webkit-scrollbar {
-            width: 6px;
-        }
-        &::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        &::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
-        }
+       scrollbar-width: none;
     }
 `;
 
