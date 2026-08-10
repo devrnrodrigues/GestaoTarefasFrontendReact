@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export const MotionViewContainer = styled(motion.div)`
     max-width: 1500px;
     width: 100%;
-    margin: 100px auto;
+    margin: 100px auto 0 auto;
     padding: 40px;
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
@@ -14,7 +14,7 @@ export const MotionViewContainer = styled(motion.div)`
     box-shadow: 0 4px 5px rgba(0,0,0,0.09);
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 120px);
     box-sizing: border-box;
 `;
 

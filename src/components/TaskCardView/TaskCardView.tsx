@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Edit, Trash2, ArrowLeft, Plus } from 'lucide-react';
 import { AddTaskModal } from '../Modals/AddTaskModal/AddTaskModal';
+import { UpdateTaskModal } from '../Modals/UpdateTaskModal/UpdateTaskModal';
 import { 
   MotionViewContainer, 
   HeaderContainer, 
@@ -13,20 +14,33 @@ import {
   AddButton 
 } from './TaskCardView.styles';
 
-interface SubTask { id: string; title: string; completed: boolean; }
+interface SubTask { id: string; title: string; description?: string; completed: boolean; }
 interface Task { category: string; title: string; progress: number; subtasks?: SubTask[]; }
 
 interface TaskCardViewProps {
   task: Task;
   onClose: () => void;
   onAddTasks?: (newTasks: SubTask[]) => void;
+  onUpdateTasks?: (updatedTasks: SubTask[]) => void;
+  onToggleSubtask?: (subtaskId: string) => void;
 }
 
-export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose, onAddTasks }) => {
+export const TaskCardView: React.FC<TaskCardViewProps> = ({ 
+  task, 
+  onClose, 
+  onAddTasks, 
+  onUpdateTasks, 
+  onToggleSubtask 
+}) => {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
+  const [isUpdateTaskModalOpen, setIsUpdateTaskModalOpen] = useState(false);
 
   const handleAddTasksSubmit = (newTasks: SubTask[]) => {
     onAddTasks?.(newTasks);
+  };
+
+  const handleUpdateTasksSubmit = (updatedTasks: SubTask[]) => {
+    onUpdateTasks?.(updatedTasks);
   };
 
   const subtasksList = task.subtasks || [];
@@ -45,6 +59,7 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose, onAdd
           <div style={{ display: 'flex', gap: '16px', cursor: 'pointer' }}>
             <span 
               style={{ display: 'inline-flex', alignItems: 'center', color: '#333', transition: 'color 0.2s ease, transform 0.2s ease' }}
+              onClick={() => setIsUpdateTaskModalOpen(true)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = '#2E7D32';
                 e.currentTarget.style.transform = 'scale(1.1)';
@@ -92,12 +107,17 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose, onAdd
           {subtasksList.map((sub) => (
             <ListItem key={sub.id}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <input type="checkbox" checked={sub.completed} style={{ cursor: 'pointer' }} />
+                <input 
+                  type="checkbox" 
+                  checked={sub.completed} 
+                  onChange={() => onToggleSubtask?.(sub.id)} 
+                  style={{ cursor: 'pointer' }} 
+                />
                 <span>{sub.title}</span>
               </div>
               <div style={{ display: 'flex', gap: '15px', color: '#666', cursor: 'pointer' }}>
                 <span 
-                  style={{ display: 'inline-flex', alignItems: 'center', color: '#666', transition: 'color 0.2s ease, transform 0.2s ease' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', color: '#666', transition: 'color 0.2s ease, transform 0.2s ease' }}                
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = '#2E7D32';
                     e.currentTarget.style.transform = 'scale(1.1)';
@@ -148,6 +168,15 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({ task, onClose, onAdd
           isOpen={isAddTaskModalOpen}
           onClose={() => setIsAddTaskModalOpen(false)}
           onAddTask={handleAddTasksSubmit}
+        />
+      )}
+
+      {isUpdateTaskModalOpen && (
+        <UpdateTaskModal
+          open={isUpdateTaskModalOpen}
+          onClose={() => setIsUpdateTaskModalOpen(false)}
+          onUpdateTask={handleUpdateTasksSubmit}
+          initialTasks={subtasksList}
         />
       )}
     </>

@@ -19,6 +19,7 @@ import {
 interface SubTask {
     id: string;
     title: string;
+    description?: string;
     completed: boolean;
 }
 
@@ -174,6 +175,70 @@ export const Home: React.FC = () => {
         setCurrentPage(1);
     };
 
+    const handleUpdateSubtasks = (updatedSubtasks: SubTask[]) => {
+        if (selectedTaskIndex !== null) {
+            const updatedTasks = [...tasks];
+            const currentTask = updatedTasks[selectedTaskIndex];
+
+            const total = updatedSubtasks.length;
+            const completed = updatedSubtasks.filter((st) => st.completed).length;
+            const newProgress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            updatedTasks[selectedTaskIndex] = {
+                ...currentTask,
+                subtasks: updatedSubtasks,
+                progress: newProgress,
+            };
+
+            setTasks(updatedTasks);
+        }
+    };
+
+    const handleAddSubtasks = (newSubtasks: SubTask[]) => {
+        if (selectedTaskIndex !== null) {
+            const updatedTasks = [...tasks];
+            const currentTask = updatedTasks[selectedTaskIndex];
+            const existingSubtasks = currentTask.subtasks || [];
+            
+            const combinedSubtasks = [...existingSubtasks, ...newSubtasks];
+            const total = combinedSubtasks.length;
+            const completed = combinedSubtasks.filter((st) => st.completed).length;
+            const newProgress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            updatedTasks[selectedTaskIndex] = {
+                ...currentTask,
+                subtasks: combinedSubtasks,
+                progress: newProgress,
+            };
+
+            setTasks(updatedTasks);
+        }
+    };
+
+    const handleToggleSubtask = (subtaskId: string) => {
+        if (selectedTaskIndex !== null) {
+            const updatedTasks = [...tasks];
+            const currentTask = updatedTasks[selectedTaskIndex];
+            const subtasksList = currentTask.subtasks || [];
+
+            const updatedSubtasks = subtasksList.map((st) => 
+                st.id === subtaskId ? { ...st, completed: !st.completed } : st
+            );
+
+            const total = updatedSubtasks.length;
+            const completed = updatedSubtasks.filter((st) => st.completed).length;
+            const newProgress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            updatedTasks[selectedTaskIndex] = {
+                ...currentTask,
+                subtasks: updatedSubtasks,
+                progress: newProgress,
+            };
+
+            setTasks(updatedTasks);
+        }
+    };
+
     return (
         <>
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -186,6 +251,9 @@ export const Home: React.FC = () => {
                             key="task-view"
                             task={tasks[selectedTaskIndex]} 
                             onClose={() => setSelectedTaskIndex(null)} 
+                            onAddTasks={handleAddSubtasks}
+                            onUpdateTasks={handleUpdateSubtasks}
+                            onToggleSubtask={handleToggleSubtask}
                         />
                     ) : (
                         <DashboardArea key="dashboard-grid">

@@ -27,7 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             <LogoIcon>
               <CheckSquare size={20} />
             </LogoIcon>
-            <LogoText>GestãoTarefas</LogoText>
+            <LogoText>GestãoMetas</LogoText>
           </Logo>
           <NavLinks>
             <li>

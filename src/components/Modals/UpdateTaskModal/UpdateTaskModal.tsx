@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Plus, Trash2, CheckSquare } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Plus, CheckSquare } from 'lucide-react';
 import {
     ModalOverlay,
     ModalContainer,
@@ -16,7 +16,7 @@ import {
     ModalFooter,
     SubmitButton,
     CancelButton
-} from './AddTaskModal.styles';
+} from './UpdateTaskModal.styles';
 
 interface TaskItem {
     id: string;
@@ -25,52 +25,67 @@ interface TaskItem {
     completed: boolean;
 }
 
-interface AddTaskModalProps {
-    isOpen: boolean;
+interface UpdateTaskModalProps {
+    open: boolean;
     onClose: () => void;
-    onAddTask: (newTasks: TaskItem[]) => void;
+    onUpdateTask: (updatedTasks: TaskItem[]) => void;
+    initialTasks?: TaskItem[];
 }
 
 interface TaskInputData {
+    id?: string;
     title: string;
     description: string;
+    completed: boolean;
 }
 
-export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }) => {
-    const [newTasks, setNewTasks] = useState<TaskInputData[]>([{ title: '', description: '' }]);
+export const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({ open, onClose, onUpdateTask, initialTasks = [] }) => {
+    const [tasks, setTasks] = useState<TaskInputData[]>([]);
+
+    useEffect(() => {
+        if (initialTasks.length > 0) {
+            setTasks(
+                initialTasks.map((t) => ({
+                    id: t.id,
+                    title: t.title.replace(/;$/, ''),
+                    description: t.description || '',
+                    completed: t.completed,
+                }))
+            );
+        } else {
+            setTasks([{ title: '', description: '', completed: false }]);
+        }
+    }, [initialTasks]);
 
     const handleAddTaskInput = () => {
-        setNewTasks([...newTasks, { title: '', description: '' }]);
+        setTasks([...tasks, { title: '', description: '', completed: false }]);
     };
 
     const handleTaskChange = (index: number, field: 'title' | 'description', value: string) => {
-        const updated = [...newTasks];
+        const updated = [...tasks];
         updated[index][field] = value;
-        setNewTasks(updated);
-    };
-
-    const handleRemoveTaskInput = (index: number) => {
-        setNewTasks(newTasks.filter((_, i) => i !== index));
+        setTasks(updated);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const formattedTasks: TaskItem[] = newTasks
+        const formattedTasks: TaskItem[] = tasks
             .filter((item) => item.title.trim() !== '')
             .map((item, idx) => ({
-                id: String(Date.now() + idx),
+                id: item.id || String(Date.now() + idx),
                 title: item.title.endsWith(';') ? item.title : `${item.title};`,
                 description: item.description.trim() !== '' ? item.description : undefined,
-                completed: false,
+                completed: item.completed,
             }));
 
         if (formattedTasks.length === 0) return;
 
-        onAddTask(formattedTasks);
-        setNewTasks([{ title: '', description: '' }]);
+        onUpdateTask(formattedTasks);
         onClose();
     };
+
+    if (!open) return null;
 
     return (
         <ModalOverlay
@@ -89,8 +104,8 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
             >
                 <ModalHeader>
                     <div>
-                        <ModalTitle>Adicionar Tarefas</ModalTitle>
-                        <p>Preencha os dados abaixo para incluir novas tarefas.</p>
+                        <ModalTitle>Atualizar Tarefas</ModalTitle>
+                        <p>Edite os dados abaixo para atualizar as tarefas.</p>
                     </div>
                     <CloseButton onClick={onClose} type="button">
                         <X size={20} />
@@ -104,11 +119,11 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
                                 <CheckSquare size={14} /> Tarefas
                             </Label>
                             <div className="tasks-container">
-                                {newTasks.map((taskItem, index) => (
+                                {tasks.map((taskItem, index) => (
                                     <TaskRow key={index}>
                                         <TaskInputsWrapper>
                                             <Input 
-                                                id={`task-input-${index}`}
+                                                id={`update-task-input-${index}`}
                                                 type="text" 
                                                 placeholder="Adicione uma tarefa..." 
                                                 value={taskItem.title} 
@@ -116,22 +131,13 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
                                                 required
                                             />
                                             <TextArea 
-                                                id={`task-desc-${index}`}
+                                                id={`update-task-desc-${index}`}
                                                 placeholder="Adicione uma descrição (opcional)..."
                                                 value={taskItem.description}
                                                 onChange={(e) => handleTaskChange(index, 'description', e.target.value)}
                                                 rows={2}
                                             />
                                         </TaskInputsWrapper>
-                                        {newTasks.length > 1 && (
-                                            <button 
-                                                type="button" 
-                                                title="Remover tarefa"
-                                                onClick={() => handleRemoveTaskInput(index)}
-                                            >
-                                                <Trash2 size={16} />
-                                            </button>
-                                        )}
                                     </TaskRow>
                                 ))}
                             </div>
@@ -146,7 +152,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
                             Cancelar
                         </CancelButton>
                         <SubmitButton type="submit">
-                            Salvar Tarefas
+                            Salvar Alterações
                         </SubmitButton>
                     </ModalFooter>
                 </form>
