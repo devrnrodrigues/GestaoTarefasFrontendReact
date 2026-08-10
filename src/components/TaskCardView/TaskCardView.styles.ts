@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const MotionViewContainer = styled(motion.div)`
-    max-width: 1500px;
+    max-width: 1300px;
     width: 100%;
     margin: 100px auto 0 auto;
     padding: 40px;
@@ -23,6 +23,37 @@ export const HeaderContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+`;
+
+export const HeaderActions = styled.div`
+    display: flex;
+    gap: 16px;
+`;
+
+export const HeaderActionBtn = styled.span<{ $isDelete?: boolean }>`
+    display: inline-flex;
+    align-items: center;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        color: ${({ $isDelete }) => ($isDelete ? '#D32F2F' : '#2E7D32')};
+        transform: scale(1.1);
+    }
+`;
+
+export const BackBtn = styled.span`
+    display: inline-flex;
+    align-items: center;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        color: #2E7D32;
+        transform: scale(1.1);
+    }
 `;
 
 export const Title = styled.h1`
@@ -60,14 +91,147 @@ export const ListContainer = styled.div`
     }
 `;
 
-export const ListItem = styled.div`
+export const ListItem = styled.div<{ $isExpandedOrEditing: boolean }>`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+    gap: ${({ $isExpandedOrEditing }) => ($isExpandedOrEditing ? '12px' : '0px')};
     background: rgba(255, 255, 255, 0.6);
     padding: 12px 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    transition: gap 0.2s ease;
+`;
+
+export const ItemMainRow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+`;
+
+export const ItemLeftContent = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+`;
+
+export const CheckboxWrapper = styled.label`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    width: 20px;
+    height: 20px;
+`;
+
+export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+`;
+
+export const StyledCheckbox = styled.div<{ $checked: boolean }>`
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid ${({ $checked }) => ($checked ? '#2E7D32' : '#BDBDBD')};
+    background: ${({ $checked }) => ($checked ? '#2E7D32' : 'transparent')};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    &::after {
+        content: '✓';
+        color: white;
+        font-size: 14px;
+        display: ${({ $checked }) => ($checked ? 'block' : 'none')};
+    }
+
+    &:hover {
+        border-color: #2E7D32;
+        box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
+    }
+`;
+
+export const EditTitleInput = styled.input`
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    color: #333;
+    padding: 4px 8px;
+    width: 100%;
+    outline: none;
+    transition: all 0.2s ease;
+
+    &:focus {
+        border-color: #2E7D32;
+    }
+`;
+
+export const ItemTitle = styled.span`
+    color: #333;
+`;
+
+export const ItemActions = styled.div`
+    display: flex;
+    gap: 15px;
+    margin-left: 15px;
+    color: #666;
+    align-items: center;
+`;
+
+export const ActionIconBtn = styled.span<{ $isDelete?: boolean }>`
+    display: inline-flex;
+    align-items: center;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        color: ${({ $isDelete }) => ($isDelete ? '#D32F2F' : '#2E7D32')};
+        transform: scale(1.1);
+    }
+`;
+
+export const AnimatedSection = styled(motion.div)`
+    width: 100%;
+    overflow: hidden;
+`;
+
+export const TextAreaInput = styled.textarea`
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    color: #333;
+    padding: 8px;
+    min-height: 60px;
+    resize: vertical;
+    outline: none;
+    font-size: 13px;
+    transition: all 0.2s ease;
+
+    &:focus {
+        border-color: #2E7D32;
+    }
+`;
+
+export const DescriptionBox = styled.div`
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    white-space: pre-wrap;
+    word-break: break-word;
 `;
 
 export const FooterContainer = styled.div`
@@ -75,6 +239,21 @@ export const FooterContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 15px;
+`;
+
+export const CompletedText = styled.div`
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-align: left;
+`;
+
+export const ProgressWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 20px;
 `;
 
 export const ProgressBar = styled.div`
@@ -90,6 +269,18 @@ export const ProgressFill = styled.div<{ $width: number }>`
     background-color: #66BB6A;
     height: 100%;
     transition: width 0.4s;
+`;
+
+export const ProgressPercent = styled.span`
+    font-size: 14px;
+    font-weight: 600;
+`;
+
+export const AddButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 `;
 
 export const AddButton = styled.button`

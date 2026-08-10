@@ -12,7 +12,7 @@ export const ModalOverlay = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2;
     padding: 20px;
 `;
 
@@ -180,7 +180,7 @@ export const TaskRow = styled.div`
     background: rgba(248, 250, 252, 0.6);
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    border: 1px solid rgba(226, 232, 240, 1);
 `;
 
 export const AddTaskButton = styled.button`
