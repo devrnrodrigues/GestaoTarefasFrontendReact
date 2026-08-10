@@ -24,7 +24,7 @@ export const ModalContainer = styled(motion.div)`
     padding: 28px;
     border-radius: 16px;
     width: 100%;
-    max-width: 440px;
+    max-width: 400px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -40,8 +40,8 @@ export const ModalContainer = styled(motion.div)`
 
     .modal-body {
         overflow-y: auto;
-        max-height: 60vh;
-        padding-right: 4px;
+        max-height: 55vh;
+        padding-right: 14px;
         margin-right: -4px;
         
         &::-webkit-scrollbar {
@@ -109,7 +109,7 @@ export const FormGroup = styled.div`
     .tasks-container {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
     }
 `;
 
@@ -146,41 +146,85 @@ export const Input = styled.input`
 `;
 
 export const TextArea = styled.textarea`
-    padding: 8px 12px;
+    padding: 9px 12px;
     border: 1px solid white;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 14px;
     color: #0f172a;
     outline: none;
+    resize: vertical;
+    min-height: 70px;
     transition: all 0.2s ease;
     background: rgba(255, 255, 255, 0.85);
-    resize: vertical;
-    font-family: inherit;
 
     &::placeholder {
         color: #94a3b8;
     }
 
     &:focus {
-        border: 1px solid #2E7D32;
+        border-color: #2E7D32;
     }
 `;
 
-export const TaskInputsWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
+export const DatePickerWrapper = styled.div`
+    width: 100%;
+
+    .react-datepicker-wrapper {
+        width: 100%;
+        display: block;
+    }
+
+    .react-datepicker__input-container {
+        width: 100%;
+        display: block;
+    }
+
+    input {
+        padding: 9px 12px;
+        border: 1px solid white;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #0f172a;
+        outline: none;
+        background: rgba(255, 255, 255, 0.85);
+        width: 100%;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+
+        &:focus {
+            border-color: #2E7D32;
+        }
+        &::placeholder {
+            color: #94a3b8;
+        }
+    }
 `;
 
 export const TaskRow = styled.div`
     display: flex;
     gap: 8px;
-    align-items: flex-start;
-    background: rgba(248, 250, 252, 0.6);
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid rgba(226, 232, 240, 1);
+    align-items: center;
+
+    input {
+        flex: 1;
+    }
+
+    button {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        cursor: pointer;
+        padding: 9px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+
+        &:hover {
+            background: #fee2e2;
+        }
+    }
 `;
 
 export const AddTaskButton = styled.button`
@@ -244,8 +288,4 @@ export const SubmitButton = styled.button`
     font-weight: 500;
     transition: all 0.2s;
     box-shadow: 0 4px 6px -1px rgba(46, 125, 50, 0.2);
-
-    &:hover {
-        opacity: 0.95;
-    }
 `;

@@ -6,6 +6,8 @@ import { Header } from '../../components/Header/Header';
 import { TaskCardView } from '../../components/TaskCardView/TaskCardView';
 import { TaskCard } from '../../components/TaskCard/TaskCard';
 import { AddGoalModal } from '../../components/Modals/AddGoalModal/AddGoalModal';
+import { UpdateGoalModal } from '../../components/Modals/UpdateGoalModal/UpdateGoalModal';
+import { ConfirmDeleteModal } from '../../components/Modals/ConfirmDeleteModal/ConfirmDeleteModal';
 import {
     MainContentWrapper,
     DashboardArea,
@@ -155,6 +157,13 @@ export const Home: React.FC = () => {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+    const [goalToEdit, setGoalToEdit] = useState<Task | null>(null);
+    const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deletingIndex, setDeletingIndex] = useState<number | null>(null);
 
     const cardsPerPage = 6;
     const totalPages = Math.ceil(tasks.length / cardsPerPage) || 1;
@@ -173,6 +182,54 @@ export const Home: React.FC = () => {
     const handleCreateTask = (newTask: Task) => {
         setTasks([newTask, ...tasks]);
         setCurrentPage(1);
+    };
+
+    const handleOpenEditModal = (absoluteIndex: number) => {
+        setEditingIndex(absoluteIndex);
+        setGoalToEdit(tasks[absoluteIndex]);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleUpdateGoal = (updatedTask: Task) => {
+        if (editingIndex !== null) {
+            const updatedTasks = [...tasks];
+            const oldTask = updatedTasks[editingIndex];
+
+            const subtasks = updatedTask.subtasks || oldTask.subtasks || [];
+            const total = subtasks.length;
+            const completed = subtasks.filter((st) => st.completed).length;
+            const progress = total > 0 ? Math.round((completed / total) * 100) : oldTask.progress;
+
+            updatedTasks[editingIndex] = {
+                ...updatedTask,
+                subtasks,
+                progress,
+            };
+
+            setTasks(updatedTasks);
+        }
+        setIsUpdateModalOpen(false);
+        setGoalToEdit(null);
+        setEditingIndex(null);
+    };
+
+    const handleOpenDeleteModal = (absoluteIndex: number) => {
+        setDeletingIndex(absoluteIndex);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        if (deletingIndex !== null) {
+            const updatedTasks = tasks.filter((_, idx) => idx !== deletingIndex);
+            setTasks(updatedTasks);
+            if (selectedTaskIndex === deletingIndex) {
+                setSelectedTaskIndex(null);
+            } else if (selectedTaskIndex !== null && selectedTaskIndex > deletingIndex) {
+                setSelectedTaskIndex(selectedTaskIndex - 1);
+            }
+        }
+        setIsDeleteModalOpen(false);
+        setDeletingIndex(null);
     };
 
     const handleUpdateSingleTask = (updatedSubtask: SubTask) => {
@@ -244,6 +301,28 @@ export const Home: React.FC = () => {
         }
     };
 
+    const handleDeleteSubtask = (subtaskId: string) => {
+        if (selectedTaskIndex !== null) {
+            const updatedTasks = [...tasks];
+            const currentTask = updatedTasks[selectedTaskIndex];
+            const subtasksList = currentTask.subtasks || [];
+
+            const updatedSubtasks = subtasksList.filter((st) => st.id !== subtaskId);
+
+            const total = updatedSubtasks.length;
+            const completed = updatedSubtasks.filter((st) => st.completed).length;
+            const newProgress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            updatedTasks[selectedTaskIndex] = {
+                ...currentTask,
+                subtasks: updatedSubtasks,
+                progress: newProgress,
+            };
+
+            setTasks(updatedTasks);
+        }
+    };
+
     return (
         <>
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -259,6 +338,8 @@ export const Home: React.FC = () => {
                             onAddTasks={handleAddSubtasks}
                             onUpdateSingleTask={handleUpdateSingleTask}
                             onToggleSubtask={handleToggleSubtask}
+                            onDeleteTask={() => handleOpenDeleteModal(selectedTaskIndex)}
+                            onDeleteSubtask={handleDeleteSubtask}
                         />
                     ) : (
                         <DashboardArea key="dashboard-grid">
@@ -285,6 +366,8 @@ export const Home: React.FC = () => {
                                                 progress={task.progress}
                                                 description={task.description}
                                                 deadline={task.deadline}
+                                                onEdit={() => handleOpenEditModal(absoluteIndex)}
+                                                onDelete={() => handleOpenDeleteModal(absoluteIndex)}
                                             />
                                         </div>
                                     );
@@ -310,6 +393,30 @@ export const Home: React.FC = () => {
                             isOpen={isModalOpen} 
                             onClose={() => setIsModalOpen(false)} 
                             onAddGoal={handleCreateTask} 
+                        />
+                    )}
+
+                    {isUpdateModalOpen && (
+                        <UpdateGoalModal
+                            isOpen={isUpdateModalOpen}
+                            onClose={() => {
+                                setIsUpdateModalOpen(false);
+                                setGoalToEdit(null);
+                                setEditingIndex(null);
+                            }}
+                            onUpdateGoal={handleUpdateGoal}
+                            initialGoal={goalToEdit}
+                        />
+                    )}
+
+                    {isDeleteModalOpen && (
+                        <ConfirmDeleteModal
+                            isOpen={isDeleteModalOpen}
+                            onClose={() => {
+                                setIsDeleteModalOpen(false);
+                                setDeletingIndex(null);
+                            }}
+                            onConfirm={handleConfirmDelete}
                         />
                     )}
                 </AnimatePresence>

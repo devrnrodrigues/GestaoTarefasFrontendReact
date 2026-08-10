@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { Edit, Trash2, ArrowLeft, Plus, Check, Info, X } from 'lucide-react';
 import { AddTaskModal } from '../Modals/AddTaskModal/AddTaskModal';
 import { UpdateTaskModal } from '../Modals/UpdateTaskModal/UpdateTaskModal';
+import { ConfirmDeleteModal } from '../Modals/ConfirmDeleteModal/ConfirmDeleteModal';
 import { 
   MotionViewContainer, 
   HeaderContainer, 
@@ -44,6 +45,8 @@ interface TaskCardViewProps {
   onUpdateTasks?: (updatedTasks: SubTask[]) => void;
   onUpdateSingleTask?: (updatedTask: SubTask) => void;
   onToggleSubtask?: (subtaskId: string) => void;
+  onDeleteTask?: () => void;
+  onDeleteSubtask?: (subtaskId: string) => void;
 }
 
 export const TaskCardView: React.FC<TaskCardViewProps> = ({ 
@@ -52,10 +55,14 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
   onAddTasks, 
   onUpdateTasks,
   onUpdateSingleTask, 
-  onToggleSubtask 
+  onToggleSubtask,
+  onDeleteTask,
+  onDeleteSubtask
 }) => {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
   const [isUpdateTaskModalOpen, setIsUpdateTaskModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [subtaskToDeleteId, setSubtaskToDeleteId] = useState<string | null>(null);
   
   const [editingSubtaskId, setEditingSubtaskId] = useState<string | null>(null);
   const [expandedSubtaskIds, setExpandedSubtaskIds] = useState<Record<string, boolean>>({});
@@ -96,6 +103,16 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
     setEditingSubtaskId(null);
   };
 
+  const handleConfirmDelete = () => {
+    if (subtaskToDeleteId) {
+      onDeleteSubtask?.(subtaskToDeleteId);
+      setSubtaskToDeleteId(null);
+    } else {
+      onDeleteTask?.();
+    }
+    setIsDeleteModalOpen(false);
+  };
+
   const subtasksList = task.subtasks || [];
   const completedCount = subtasksList.filter(st => st.completed).length;
   const totalCount = subtasksList.length;
@@ -113,7 +130,13 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
             <HeaderActionBtn onClick={() => setIsUpdateTaskModalOpen(true)}>
               <Edit size={20} />
             </HeaderActionBtn>
-            <HeaderActionBtn $isDelete>
+            <HeaderActionBtn 
+              $isDelete 
+              onClick={() => {
+                setSubtaskToDeleteId(null);
+                setIsDeleteModalOpen(true);
+              }}
+            >
               <Trash2 size={20} />
             </HeaderActionBtn>
           </HeaderActions>
@@ -172,7 +195,13 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
                         <ActionIconBtn onClick={() => handleStartEdit(sub)}>
                           <Edit size={18} />
                         </ActionIconBtn>
-                        <ActionIconBtn $isDelete>
+                        <ActionIconBtn 
+                          $isDelete 
+                          onClick={() => {
+                            setSubtaskToDeleteId(sub.id);
+                            setIsDeleteModalOpen(true);
+                          }}
+                        >
                           <Trash2 size={18} />
                         </ActionIconBtn>
                       </>
@@ -246,6 +275,17 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
           initialTasks={subtasksList}
         />
       )}
+
+      <ConfirmDeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setSubtaskToDeleteId(null);
+        }}
+        onConfirm={handleConfirmDelete}
+        title={subtaskToDeleteId ? "Excluir Tarefa" : "Excluir Meta"}
+        message={subtaskToDeleteId ? "Tem certeza que deseja excluir esta tarefa? Esta ação não poderá ser desfeita." : "Tem certeza que deseja excluir esta meta? Esta ação não poderá ser desfeita."}
+      />
     </>
   );
 };
