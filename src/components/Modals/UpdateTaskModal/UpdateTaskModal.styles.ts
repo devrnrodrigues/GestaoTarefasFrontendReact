@@ -118,14 +118,19 @@ export const Input = styled.input`
     padding: 9px 12px;
     border: 1px solid white;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 12px;
     color: #0f172a;
     outline: none;
     transition: all 0.2s ease;
     background: rgba(255, 255, 255, 0.85);
 
     &::placeholder {
-        color: #94a3b8;
+    color: #94a3b8;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    }
+    &:focus::placeholder {
+    opacity: 1;
     }
 
     &:focus {
@@ -137,7 +142,7 @@ export const TextArea = styled.textarea`
     padding: 8px 12px;
     border: 1px solid white;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     color: #0f172a;
     outline: none;
     transition: all 0.2s ease;
@@ -146,7 +151,12 @@ export const TextArea = styled.textarea`
     font-family: inherit;
 
     &::placeholder {
-        color: #94a3b8;
+    color: #94a3b8;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    }
+    &:focus::placeholder {
+    opacity: 1;
     }
 
     &:focus {
@@ -168,28 +178,7 @@ export const TaskRow = styled.div`
     background: rgba(248, 250, 252, 0.6);
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid rgba(226, 232, 240, 1);
-`;
-
-export const AddTaskButton = styled.button`
-    background: #f0fdf4;
-    border: 1px dashed #2E7D32;
-    color: #2E7D32;
-    padding: 9px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 4px;
-    transition: all 0.2s;
-
-    &:hover {
-        background: #dcfce7;
-    }
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 `;
 
 export const ModalFooter = styled.div`
@@ -230,10 +219,6 @@ export const SubmitButton = styled.button`
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    transition: all 0.2s;
     box-shadow: 0 4px 6px -1px rgba(46, 125, 50, 0.2);
 
-    &:hover {
-        opacity: 0.95;
-    }
 `;

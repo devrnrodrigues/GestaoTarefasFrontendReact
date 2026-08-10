@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DatePicker from 'react-datepicker';
-import { ptBR } from 'date-fns/locale'; // <-- 1. Importe o idioma pt-BR
+import { ptBR } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import { X, Plus, Trash2, Layers, FileText, CheckSquare, AlignLeft, Calendar } from 'lucide-react';
 import {
@@ -42,12 +42,25 @@ interface AddGoalModalProps {
     onAddGoal: (newTask: Task) => void;
 }
 
-export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }) => {
+export const AddGoalModal: React.FC<AddGoalModalProps> = ({ isOpen, onClose, onAddGoal }) => {
     const [newCategory, setNewCategory] = useState('');
     const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const defaultDeadline = new Date();
+    defaultDeadline.setMonth(defaultDeadline.getMonth() + 1);
+    const [selectedDate, setSelectedDate] = useState<Date | null>(defaultDeadline);
     const [newTasks, setNewTasks] = useState<string[]>(['']);
+
+    const categoryInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                categoryInputRef.current?.focus();
+            }, 50);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen]);
 
     const handleAddTaskInput = () => {
         setNewTasks([...newTasks, '']);
@@ -99,19 +112,17 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onClick={onClose}
         >
             <ModalContainer
                 initial={{ opacity: 0, y: 20, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.98 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                onClick={(e) => e.stopPropagation()}
             >
                 <ModalHeader>
                     <div>
-                        <ModalTitle>Criar Nova Meta</ModalTitle>
-                        <p>Preencha os dados abaixo para estruturar sua nova meta.</p>
+                        <ModalTitle>Nova meta</ModalTitle>
+                        <p>Preencha os dados abaixo com um título e categoria para estruturar sua nova meta.</p>
                     </div>
                     <CloseButton onClick={onClose} type="button">
                         <X size={20} />
@@ -122,12 +133,13 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
                     <div className="modal-body">
                         <FormGroup>
                             <Label htmlFor="category-input">
-                                <Layers size={14} /> Categoria
+                                <Layers size={14} /> Categoria *
                             </Label>
                             <Input 
+                                ref={categoryInputRef}
                                 id="category-input"
                                 type="text" 
-                                placeholder="Adicione uma categoria..." 
+                                placeholder="Ex: Estudos"
                                 value={newCategory} 
                                 onChange={(e) => setNewCategory(e.target.value)} 
                                 required 
@@ -136,12 +148,12 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
 
                         <FormGroup>
                             <Label htmlFor="title-input">
-                                <FileText size={14} /> Título
+                                <FileText size={14} /> Título *
                             </Label>
                             <Input 
                                 id="title-input"
                                 type="text" 
-                                placeholder="Adicione um título..." 
+                                placeholder="Ex: Aprender inglês"
                                 value={newTitle} 
                                 onChange={(e) => setNewTitle(e.target.value)} 
                                 required 
@@ -150,11 +162,11 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
 
                         <FormGroup>
                             <Label htmlFor="description-input">
-                                <AlignLeft size={14} /> Descrição
+                                <AlignLeft size={14} /> Descrição 
                             </Label>
                             <TextArea 
                                 id="description-input"
-                                placeholder="Adicione uma descrição (opcional)..." 
+                                placeholder="Descreva os detalhes e objetivos principais desta meta."
                                 value={newDescription} 
                                 onChange={(e) => setNewDescription(e.target.value)} 
                             />
@@ -170,8 +182,8 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
                                     selected={selectedDate}
                                     onChange={(date: Date | null) => setSelectedDate(date)}
                                     dateFormat="dd/MM/yyyy"
-                                    placeholderText="DD/MM/AAAA"
-                                    locale={ptBR} // <-- 2. Atribua o locale aqui
+                                    placeholderText="Indefinido"
+                                    locale={ptBR}
                                     isClearable
                                 />
                             </DatePickerWrapper>
@@ -187,7 +199,7 @@ export const AddGoalModal: React.FC<AddGoalModalProps> = ({ onClose, onAddGoal }
                                         <Input 
                                             id={`task-input-${index}`}
                                             type="text" 
-                                            placeholder="Adicione uma tarefa (opcional)..." 
+                                            placeholder={`Digite a ${index + 1}° tarefa.`}
                                             value={taskItem} 
                                             onChange={(e) => handleTaskChange(index, e.target.value)} 
                                         />

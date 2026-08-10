@@ -79,10 +79,10 @@ export const ListItem = styled.div<{ $isExpandedOrEditing: boolean }>`
     flex-direction: column;
     align-items: stretch;
     gap: ${({ $isExpandedOrEditing }) => ($isExpandedOrEditing ? '12px' : '0px')};
-    background: rgba(255, 255, 255, 0.6);
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.45);
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: gap 0.2s ease;
 `;
 
@@ -163,7 +163,7 @@ export const ItemTitle = styled.span`
 
 export const ItemActions = styled.div`
     display: flex;
-    gap: 15px;
+    gap: clamp(15px, 2vw, 25px);
     margin-left: 15px;
     color: #666;
     align-items: center;
@@ -207,14 +207,17 @@ export const TextAreaInput = styled.textarea`
 
 export const DescriptionBox = styled.div`
     width: 100%;
-    margin-top: 8px;
-    padding-top: 8px;
+    padding-top: 10px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
-    font-size: 12px;
-    color: #666;
-    font-style: italic;
+    font-size: 13px;
+    color: #555555;
     white-space: pre-wrap;
     word-break: break-word;
+     &.no-description {
+    font-style: italic;
+    font-size: 12px;
+    color: #666;
+  }
 `;
 
 export const FooterContainer = styled.div`

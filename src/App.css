@@ -2,14 +2,6 @@
     box-sizing: border-box;
 }
 body {
-    background: radial-gradient(
-    circle at center,
-    #ffffff 0%,  
-    #fbfbfb 25%,   
-    #f5f5f5 60%,   
-    #eaeaea 100%   
-  );
-  background-attachment: fixed;
     min-height: 100vh;
     }
 

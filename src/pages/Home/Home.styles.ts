@@ -5,15 +5,11 @@ export const MainContentWrapper = styled.main`
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 0 15px;
+    padding: 0 10px;
     min-height: 100vh;
     transition: margin-left 0.3s ease-in-out;
     background-color: #ffffff;
-    background-image: 
-        radial-gradient(at 10% 20%, rgba(46, 125, 50, 0.06) 0px, transparent 50%),
-        radial-gradient(at 90% 80%, rgba(168, 230, 29, 0.08) 0px, transparent 50%);
-    background-size: 100% 100%, 100% 100%;
-
+    background: linear-gradient(135deg, #fafbfc 0%, #eef2f7 100%);
     @media (max-width: 768px) {
         margin-left: 0;
     }
@@ -42,7 +38,7 @@ export const DashboardHeader = styled.div`
 `;
 
 export const DashboardTitle = styled.h1`
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 400;
     color: #333;
 
@@ -118,4 +114,16 @@ export const CardGrid = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 25px;
     justify-content: center;
+`;
+
+export const GreetingText = styled.span`
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 4px;
+
+    @media (max-width: 868px) {
+    display: none;
+    }
 `;

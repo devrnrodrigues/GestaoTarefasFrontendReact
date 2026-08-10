@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import { ptBR } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -54,6 +54,17 @@ export const UpdateGoalModal: React.FC<UpdateGoalModalProps> = ({
     const [description, setDescription] = useState('');
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [tasks, setTasks] = useState<TaskItem[]>([]);
+
+    const categoryInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                categoryInputRef.current?.focus();
+            }, 50);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen]);
 
     useEffect(() => {
         if (initialGoal) {
@@ -133,14 +144,12 @@ export const UpdateGoalModal: React.FC<UpdateGoalModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onClick={onClose}
         >
             <ModalContainer
                 initial={{ opacity: 0, y: 20, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.98 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                onClick={(e) => e.stopPropagation()}
             >
                 <ModalHeader>
                     <div>
@@ -159,10 +168,11 @@ export const UpdateGoalModal: React.FC<UpdateGoalModalProps> = ({
                                 <Layers size={14} /> Categoria
                             </Label>
                             <Input 
+                                ref={categoryInputRef}
                                 id="update-category-input"
                                 type="text" 
-                                placeholder="Adicione uma categoria..." 
                                 value={category} 
+                                placeholder="Ex: Estudos"
                                 onChange={(e) => setCategory(e.target.value)} 
                                 required 
                             />
@@ -175,8 +185,8 @@ export const UpdateGoalModal: React.FC<UpdateGoalModalProps> = ({
                             <Input 
                                 id="update-title-input"
                                 type="text" 
-                                placeholder="Adicione um título..." 
                                 value={title} 
+                                placeholder="Ex: Aprender inglês"
                                 onChange={(e) => setTitle(e.target.value)} 
                                 required 
                             />
@@ -188,7 +198,7 @@ export const UpdateGoalModal: React.FC<UpdateGoalModalProps> = ({
                             </Label>
                             <TextArea 
                                 id="update-description-input"
-                                placeholder="Adicione uma descrição (opcional)..." 
+                                placeholder="Descreva os detalhes e objetivos principais desta meta." 
                                 value={description} 
                                 onChange={(e) => setDescription(e.target.value)} 
                             />
@@ -221,7 +231,7 @@ export const UpdateGoalModal: React.FC<UpdateGoalModalProps> = ({
                                         <Input 
                                             id={`update-task-input-${index}`}
                                             type="text" 
-                                            placeholder="Adicione uma tarefa (opcional)..." 
+                                            placeholder={`Digite a ${index + 1}° tarefa.`} 
                                             value={taskItem.title} 
                                             onChange={(e) => handleTaskChange(index, e.target.value)} 
                                         />

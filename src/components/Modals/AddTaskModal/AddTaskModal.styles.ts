@@ -130,14 +130,19 @@ export const Input = styled.input`
     padding: 9px 12px;
     border: 1px solid white;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 12px;
     color: #0f172a;
     outline: none;
     transition: all 0.2s ease;
     background: rgba(255, 255, 255, 0.85);
 
-    &::placeholder {
-        color: #94a3b8;
+     &::placeholder {
+    color: #94a3b8;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    }
+    &:focus::placeholder {
+    opacity: 1;
     }
 
     &:focus {
@@ -149,7 +154,7 @@ export const TextArea = styled.textarea`
     padding: 8px 12px;
     border: 1px solid white;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     color: #0f172a;
     outline: none;
     transition: all 0.2s ease;
@@ -158,7 +163,12 @@ export const TextArea = styled.textarea`
     font-family: inherit;
 
     &::placeholder {
-        color: #94a3b8;
+    color: #94a3b8;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    }
+    &:focus::placeholder {
+    opacity: 1;
     }
 
     &:focus {

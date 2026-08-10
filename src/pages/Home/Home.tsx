@@ -15,7 +15,8 @@ import {
     DashboardTitle,
     ViewSelector,
     AddButton,
-    CardGrid
+    CardGrid,
+    GreetingText
 } from './Home.styles';
 
 interface SubTask {
@@ -344,7 +345,10 @@ export const Home: React.FC = () => {
                     ) : (
                         <DashboardArea key="dashboard-grid">
                             <DashboardHeader>
-                                <DashboardTitle>Gerencie suas metas</DashboardTitle>
+                                <div>
+                                    <GreetingText>Olá, Renan Rodrigues!</GreetingText>
+                                    <DashboardTitle>Gerencie suas metas</DashboardTitle>
+                                </div>
                                 <AddButton onClick={() => setIsModalOpen(true)}>
                                     <Plus size={16} /> Adicionar Meta
                                 </AddButton>

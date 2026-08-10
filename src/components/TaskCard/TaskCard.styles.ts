@@ -10,19 +10,35 @@ export const CardContainer = styled(motion.div)`
     border-radius: 30px;
     padding: 40px;
     color: #333333;
-    box-shadow: 0 4px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
     justify-content: space-between;
-    transition: box-shadow 0.3s ease, background 0.3s ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
     transform-style: preserve-3d;
-    will-change: transform;
+    border: 1px solid white;
+    cursor: pointer;
 
     &:hover {
-        box-shadow: 0 16px 32px rgba(0,0,0,0.2);
-        backdrop-filter: blur(0);
-        -webkit-backdrop-filter: blur(0);
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     }
+`;
+
+export const TooltipContainer = styled(motion.div)`
+    position: absolute;
+    pointer-events: none;
+    background: rgba(46, 125, 50, 0.9);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
 `;
 
 export const CardInfoIcon = styled.span`
@@ -36,8 +52,8 @@ export const CardInfoIcon = styled.span`
     transition: color 0.2s ease, transform 0.2s ease;
 
     &:hover {
-        color: #2E7D32;
         transform: scale(1.1);
+        color: #2E7D32;
     }
 `;
 

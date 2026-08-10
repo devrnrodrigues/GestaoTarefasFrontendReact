@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { X, Plus, CheckSquare } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, CheckSquare } from 'lucide-react';
 import {
     ModalOverlay,
     ModalContainer,
@@ -12,7 +12,6 @@ import {
     TextArea,
     TaskRow,
     TaskInputsWrapper,
-    AddTaskButton,
     ModalFooter,
     SubmitButton,
     CancelButton
@@ -42,6 +41,17 @@ interface TaskInputData {
 export const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({ open, onClose, onUpdateTask, initialTasks = [] }) => {
     const [tasks, setTasks] = useState<TaskInputData[]>([]);
 
+    const firstInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (open) {
+            const timer = setTimeout(() => {
+                firstInputRef.current?.focus();
+            }, 50);
+            return () => clearTimeout(timer);
+        }
+    }, [open]);
+
     useEffect(() => {
         if (initialTasks.length > 0) {
             setTasks(
@@ -56,10 +66,6 @@ export const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({ open, onClose,
             setTasks([{ title: '', description: '', completed: false }]);
         }
     }, [initialTasks]);
-
-    const handleAddTaskInput = () => {
-        setTasks([...tasks, { title: '', description: '', completed: false }]);
-    };
 
     const handleTaskChange = (index: number, field: 'title' | 'description', value: string) => {
         const updated = [...tasks];
@@ -93,14 +99,12 @@ export const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({ open, onClose,
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onClick={onClose}
         >
             <ModalContainer
                 initial={{ opacity: 0, y: 20, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.98 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                onClick={(e) => e.stopPropagation()}
             >
                 <ModalHeader>
                     <div>
@@ -123,16 +127,17 @@ export const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({ open, onClose,
                                     <TaskRow key={index}>
                                         <TaskInputsWrapper>
                                             <Input 
+                                                ref={index === 0 ? firstInputRef : null}
                                                 id={`update-task-input-${index}`}
                                                 type="text" 
-                                                placeholder="Adicione uma tarefa..." 
+                                                placeholder="Ex: Ler um livro" 
                                                 value={taskItem.title} 
                                                 onChange={(e) => handleTaskChange(index, 'title', e.target.value)} 
                                                 required
                                             />
                                             <TextArea 
                                                 id={`update-task-desc-${index}`}
-                                                placeholder="Adicione uma descrição (opcional)..."
+                                                placeholder="Descreva os detalhes e objetivos principais desta tarefa."
                                                 value={taskItem.description}
                                                 onChange={(e) => handleTaskChange(index, 'description', e.target.value)}
                                                 rows={2}
@@ -141,9 +146,6 @@ export const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({ open, onClose,
                                     </TaskRow>
                                 ))}
                             </div>
-                            <AddTaskButton type="button" onClick={handleAddTaskInput}>
-                                <Plus size={15} /> Adicionar tarefa
-                            </AddTaskButton>
                         </FormGroup>
                     </div>
 

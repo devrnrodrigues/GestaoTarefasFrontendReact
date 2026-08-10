@@ -232,7 +232,7 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.2, ease: 'easeInOut' }}
                     >
-                      <DescriptionBox>
+                      <DescriptionBox className={!sub.description ? 'no-description' : ''}>
                         {sub.description || 'Sem descrição fornecida.'}
                       </DescriptionBox>
                     </AnimatedSection>
@@ -253,39 +253,47 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
           </ProgressWrapper>
           <AddButtonContainer>
             <AddButton onClick={() => setIsAddTaskModalOpen(true)}>
-              <Plus size={16} /> Adicionar tarefa
+              <Plus size={16} /> Adicionar tarefas
             </AddButton>
           </AddButtonContainer>
         </FooterContainer>
       </MotionViewContainer>
 
-      {isAddTaskModalOpen && (
-        <AddTaskModal
-          isOpen={isAddTaskModalOpen}
-          onClose={() => setIsAddTaskModalOpen(false)}
-          onAddTask={handleAddTasksSubmit}
-        />
-      )}
+      <AnimatePresence>
+        {isAddTaskModalOpen && (
+          <AddTaskModal
+            isOpen={isAddTaskModalOpen}
+            onClose={() => setIsAddTaskModalOpen(false)}
+            onAddTask={handleAddTasksSubmit}
+          />
+        )}
+      </AnimatePresence>
 
-      {isUpdateTaskModalOpen && (
-        <UpdateTaskModal
-          open={isUpdateTaskModalOpen}
-          onClose={() => setIsUpdateTaskModalOpen(false)}
-          onUpdateTask={handleUpdateTasksSubmit}
-          initialTasks={subtasksList}
-        />
-      )}
+      <AnimatePresence>
+        {isUpdateTaskModalOpen && (
+          <UpdateTaskModal
+            open={isUpdateTaskModalOpen}
+            onClose={() => setIsUpdateTaskModalOpen(false)}
+            onUpdateTask={handleUpdateTasksSubmit}
+            initialTasks={subtasksList}
+          />
+        )}
+      </AnimatePresence>
 
-      <ConfirmDeleteModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => {
-          setIsDeleteModalOpen(false);
-          setSubtaskToDeleteId(null);
-        }}
-        onConfirm={handleConfirmDelete}
-        title={subtaskToDeleteId ? "Excluir Tarefa" : "Excluir Meta"}
-        message={subtaskToDeleteId ? "Tem certeza que deseja excluir esta tarefa? Esta ação não poderá ser desfeita." : "Tem certeza que deseja excluir esta meta? Esta ação não poderá ser desfeita."}
-      />
+      <AnimatePresence>
+        {isDeleteModalOpen && (
+          <ConfirmDeleteModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => {
+              setIsDeleteModalOpen(false);
+              setSubtaskToDeleteId(null);
+            }}
+            onConfirm={handleConfirmDelete}
+            title={subtaskToDeleteId ? "Excluir Tarefa" : "Excluir Meta"}
+            message={subtaskToDeleteId ? "Tem certeza que deseja excluir esta tarefa? Esta ação não poderá ser desfeita." : "Tem certeza que deseja excluir esta meta? Esta ação não poderá ser desfeita."}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

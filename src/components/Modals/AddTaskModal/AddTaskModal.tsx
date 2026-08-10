@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, Plus, Trash2, CheckSquare } from 'lucide-react';
 import {
     ModalOverlay,
@@ -36,11 +36,29 @@ interface TaskInputData {
     description: string;
 }
 
-export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }) => {
+export const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onClose, onAddTask }) => {
     const [newTasks, setNewTasks] = useState<TaskInputData[]>([{ title: '', description: '' }]);
 
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                inputRefs.current[0]?.focus();
+            }, 50);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen]);
+
     const handleAddTaskInput = () => {
-        setNewTasks([...newTasks, { title: '', description: '' }]);
+        setNewTasks((prev) => {
+            const updated = [...prev, { title: '', description: '' }];
+            setTimeout(() => {
+                const lastIndex = updated.length - 1;
+                inputRefs.current[lastIndex]?.focus();
+            }, 50);
+            return updated;
+        });
     };
 
     const handleTaskChange = (index: number, field: 'title' | 'description', value: string) => {
@@ -72,20 +90,20 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
         onClose();
     };
 
+    if (!isOpen) return null;
+
     return (
         <ModalOverlay
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onClick={onClose}
         >
             <ModalContainer
                 initial={{ opacity: 0, y: 20, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.98 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                onClick={(e) => e.stopPropagation()}
             >
                 <ModalHeader>
                     <div>
@@ -108,16 +126,19 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onAddTask }
                                     <TaskRow key={index}>
                                         <TaskInputsWrapper>
                                             <Input 
+                                                ref={(el) => {
+                                                    inputRefs.current[index] = el;
+                                                }}
                                                 id={`task-input-${index}`}
                                                 type="text" 
-                                                placeholder="Adicione uma tarefa..." 
+                                                placeholder="Ex: Ler um livro" 
                                                 value={taskItem.title} 
                                                 onChange={(e) => handleTaskChange(index, 'title', e.target.value)} 
                                                 required
                                             />
                                             <TextArea 
                                                 id={`task-desc-${index}`}
-                                                placeholder="Adicione uma descrição (opcional)..."
+                                                placeholder="Descreva os detalhes e objetivos principais desta tarefa."
                                                 value={taskItem.description}
                                                 onChange={(e) => handleTaskChange(index, 'description', e.target.value)}
                                                 rows={2}

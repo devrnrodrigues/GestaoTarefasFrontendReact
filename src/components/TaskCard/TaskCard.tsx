@@ -1,209 +1,208 @@
 import React, { useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Edit, Trash2, ArrowLeft, Info, Calendar } from 'lucide-react';
 import {
-  CardContainer,
-  CardInfoIcon,
-  CardCategory,
-  CardTitle,
-  ProgressContainer,
-  ProgressBar,
-  ProgressTextInside
+    CardContainer,
+    CardInfoIcon,
+    CardCategory,
+    CardTitle,
+    ProgressContainer,
+    ProgressBar,
+    ProgressTextInside,
+    TooltipContainer
 } from './TaskCard.styles';
 
 interface TaskCardProps {
-  category: string;
-  title: string;
-  progress: number;
-  description: string;
-  deadline?: string;
-  onEdit?: () => void;
-  onDelete?: () => void;
+    category: string;
+    title: string;
+    progress: number;
+    description: string;
+    deadline?: string;
+    onEdit?: () => void;
+    onDelete?: () => void;
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({
-  category,
-  title,
-  progress,
-  description,
-  deadline,
-  onEdit,
-  onDelete
+    category,
+    title,
+    progress,
+    description,
+    deadline,
+    onEdit,
+    onDelete
 }) => {
-  const [expanded, setExpanded] = useState(false);
-  const [isFlipping, setIsFlipping] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+    const [isFlipping, setIsFlipping] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+    const [isInfoHovered, setIsInfoHovered] = useState(false);
 
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+    function flip(to: boolean) {
+        setIsFlipping(true);
+        setTimeout(() => {
+            setExpanded(to);
+        }, 50);
+    }
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setMousePosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        });
+    };
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-  const translateY = useTransform(mouseYSpring, [-0.5, 0.5], [-6, 6]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (expanded || isFlipping) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  function flip(to: boolean) {
-    setIsFlipping(true);
-    x.set(0);
-    y.set(0);
-    setTimeout(() => {
-      setExpanded(to);
-    }, 50);
-  }
-
-  return (
-    <motion.div
-      style={{
-        perspective: 1000,
-        width: "100%",
-        height: "100%",
-      }}
-      animate={{ rotateY: isFlipping ? 180 : 0 }}
-      transition={{ duration: 0.2 }}
-      onAnimationComplete={() => setIsFlipping(false)}
-    >
-      <CardContainer
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          transformStyle: "preserve-3d",
-          backfaceVisibility: "hidden",
-          rotateX: isFlipping ? 0 : rotateX,
-          rotateY: isFlipping ? 0 : rotateY,
-          y: isFlipping ? 0 : translateY,
-        }}
-      >
-        {expanded ? (
-          <>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-              <div style={{ display: "flex", gap: "16px", cursor: "pointer" }}>
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onEdit?.();
-                  }}
-                  style={{ 
-                    display: "inline-flex", 
-                    alignItems: "center", 
-                    color: "#333",
-                    transition: "color 0.2s ease, transform 0.2s ease"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#2E7D32";
-                    e.currentTarget.style.transform = "scale(1.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "#333";
-                    e.currentTarget.style.transform = "scale(1)";
-                  }}
-                >
-                  <Edit size={20} />
-                </span>
-
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDelete?.();
-                  }}
-                  style={{ 
-                    display: "inline-flex", 
-                    alignItems: "center", 
-                    color: "#333",
-                    transition: "color 0.2s ease, transform 0.2s ease"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#D32F2F";
-                    e.currentTarget.style.transform = "scale(1.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "#333";
-                    e.currentTarget.style.transform = "scale(1)";
-                  }}
-                >
-                  <Trash2 size={20} />
-                </span>
-              </div>
-
-              <span
-                onClick={(e) => {
-                  e.stopPropagation();
-                  flip(false);
+    return (
+        <motion.div
+            style={{
+                perspective: 1000,
+                width: "100%",
+                height: "100%",
+            }}
+            animate={{ rotateY: isFlipping ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+            onAnimationComplete={() => setIsFlipping(false)}
+        >
+            <CardContainer
+                style={{
+                    transformStyle: "preserve-3d",
+                    backfaceVisibility: "hidden",
                 }}
-                style={{ 
-                  display: "inline-flex", 
-                  alignItems: "center", 
-                  color: "#333", 
-                  cursor: "pointer",
-                  transition: "color 0.2s ease, transform 0.2s ease"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "#2E7D32";
-                  e.currentTarget.style.transform = "scale(1.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "#333";
-                  e.currentTarget.style.transform = "scale(1)";
-                }}
-              >
-                <ArrowLeft size={24} />
-              </span>
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", margin: "auto 0" }}>
-              <CardCategory>Descrição</CardCategory>
-              <CardTitle style={{ fontSize: "18px", fontWeight: "400", lineHeight: "1.4" }}>
-                {description}
-              </CardTitle>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#666", fontWeight: "500" }}>
-              <Calendar size={15} style={{ color: "#2E7D32" }} />
-              <span>{deadline ? `Prazo: ${deadline}` : "Sem prazo"}</span>
-            </div>
-          </>
-        ) : (
-          <>
-            <CardInfoIcon
-              onClick={(e) => {
-                e.stopPropagation();
-                flip(true);
-              }}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
             >
-              <Info size={26} />
-            </CardInfoIcon>
-            <div>
-              <CardCategory>{category}</CardCategory>
-              <CardTitle>{title}</CardTitle>
-            </div>
-            <div>
-              <ProgressContainer>
-                <ProgressBar $progress={progress}>
-                  <ProgressTextInside>{progress}%</ProgressTextInside>
-                </ProgressBar>
-              </ProgressContainer>
-            </div>
-          </>
-        )}
-      </CardContainer>
-    </motion.div>
-  );
+                <AnimatePresence>
+                    {isHovered && !expanded && !isInfoHovered && (
+                        <TooltipContainer
+                            style={{
+                                left: mousePosition.x + 15,
+                                top: mousePosition.y + 15,
+                            }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.15 }}
+                        >
+                            Abrir meta
+                        </TooltipContainer>
+                    )}
+                </AnimatePresence>
+
+                {expanded ? (
+                    <>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                            <div style={{ display: "flex", gap: "16px", cursor: "pointer" }}>
+                                <span
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onEdit?.();
+                                    }}
+                                    style={{ 
+                                        display: "inline-flex", 
+                                        alignItems: "center", 
+                                        color: "#333",
+                                        transition: "color 0.2s ease, transform 0.2s ease"
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.color = "#2E7D32";
+                                        e.currentTarget.style.transform = "scale(1.1)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.color = "#333";
+                                        e.currentTarget.style.transform = "scale(1)";
+                                    }}
+                                >
+                                    <Edit size={20} />
+                                </span>
+
+                                <span
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onDelete?.();
+                                    }}
+                                    style={{ 
+                                        display: "inline-flex", 
+                                        alignItems: "center", 
+                                        color: "#333",
+                                        transition: "color 0.2s ease, transform 0.2s ease"
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.color = "#D32F2F";
+                                        e.currentTarget.style.transform = "scale(1.1)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.color = "#333";
+                                        e.currentTarget.style.transform = "scale(1)";
+                                    }}
+                                >
+                                    <Trash2 size={20} />
+                                </span>
+                            </div>
+
+                            <span
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    flip(false);
+                                }}
+                                style={{ 
+                                    display: "inline-flex", 
+                                    alignItems: "center", 
+                                    color: "#333", 
+                                    cursor: "pointer",
+                                    transition: "color 0.2s ease, transform 0.2s ease"
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.color = "#2E7D32";
+                                    e.currentTarget.style.transform = "scale(1.1)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.color = "#333";
+                                    e.currentTarget.style.transform = "scale(1)";
+                                }}
+                            >
+                                <ArrowLeft size={24} />
+                            </span>
+                        </div>
+
+                        <div style={{ display: "flex", flexDirection: "column", margin: "auto 0" }}>
+                            <CardCategory>Descrição</CardCategory>
+                            <CardTitle style={{ fontSize: "18px", fontWeight: "400", lineHeight: "1.4" }}>
+                                {description}
+                            </CardTitle>
+                        </div>
+
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#666", fontWeight: "500" }}>
+                            <Calendar size={15} style={{ color: "#2E7D32" }} />
+                            <span>{deadline ? `Prazo: ${deadline}` : "Sem prazo"}</span>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <CardInfoIcon
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                flip(true);
+                            }}
+                            onMouseEnter={() => setIsInfoHovered(true)}
+                            onMouseLeave={() => setIsInfoHovered(false)}
+                        >
+                            <Info size={26} />
+                        </CardInfoIcon>
+                        <div>
+                            <CardCategory>{category}</CardCategory>
+                            <CardTitle>{title}</CardTitle>
+                        </div>
+                        <div>
+                            <ProgressContainer>
+                                <ProgressBar $progress={progress}>
+                                    <ProgressTextInside>{progress}%</ProgressTextInside>
+                                </ProgressBar>
+                            </ProgressContainer>
+                        </div>
+                    </>
+                )}
+            </CardContainer>
+        </motion.div>
+    );
 };
