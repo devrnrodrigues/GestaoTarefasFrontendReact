@@ -3,8 +3,11 @@ import { X, AlertTriangle } from 'lucide-react';
 import {
     ModalOverlay,
     ModalContainer,
-    ModalHeader,
+    ModalContent,
+    IconWrapper,
+    TextContent,
     ModalTitle,
+    ModalDescription,
     CloseButton,
     ModalFooter,
     SubmitButton,
@@ -33,52 +36,36 @@ export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
             onClick={onClose}
         >
             <ModalContainer
-                initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.98 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
+                initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 10 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 onClick={(e) => e.stopPropagation()}
             >
-                <ModalHeader>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div style={{
-                            background: '#fef2f2',
-                            border: '1px solid #fecaca',
-                            color: '#dc2626',
-                            padding: '8px',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}>
-                            <AlertTriangle size={20} />
-                        </div>
-                        <div>
-                            <ModalTitle>{title}</ModalTitle>
-                            <p>{message}</p>
-                        </div>
-                    </div>
-                    <CloseButton onClick={onClose} type="button">
-                        <X size={20} />
-                    </CloseButton>
-                </ModalHeader>
+                <ModalContent>
+                    <IconWrapper>
+                        <AlertTriangle size={22} />
+                    </IconWrapper>
 
-                <ModalFooter style={{ borderTop: 'none', marginTop: '10px', paddingTop: '0' }}>
+                    <TextContent>
+                        <ModalTitle>{title}</ModalTitle>
+                        <ModalDescription>{message}</ModalDescription>
+                    </TextContent>
+
+                    <CloseButton onClick={onClose} type="button">
+                        <X size={18} />
+                    </CloseButton>
+                </ModalContent>
+
+                <ModalFooter>
                     <CancelButton type="button" onClick={onClose}>
                         Cancelar
                     </CancelButton>
-                    <SubmitButton 
-                        type="button" 
-                        onClick={onConfirm}
-                        style={{
-                            background: 'linear-gradient(135deg, #991b1b 0%, #b91c1c 50%, #7f1d1d 100%)',
-                            boxShadow: '0 4px 6px -1px rgba(220, 38, 38, 0.2)'
-                        }}
-                    >
+                    <SubmitButton type="button" onClick={onConfirm}>
                         Sim, Excluir
                     </SubmitButton>
                 </ModalFooter>
