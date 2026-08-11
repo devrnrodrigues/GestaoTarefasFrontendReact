@@ -58,10 +58,9 @@ export const CardInfoIcon = styled.span`
 `;
 
 export const CardCategory = styled.div`
-    font-size: 12px;
+    font-size: 13px;
     color: #777;
     margin-bottom: 8px;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
 `;
 

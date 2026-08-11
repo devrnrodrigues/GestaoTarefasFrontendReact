@@ -8,7 +8,6 @@ export const MainContentWrapper = styled.main`
     padding: 0 10px;
     min-height: 100vh;
     transition: margin-left 0.3s ease-in-out;
-    background-color: #ffffff;
     background: linear-gradient(135deg, #fafbfc 0%, #eef2f7 100%);
     @media (max-width: 768px) {
         margin-left: 0;
@@ -18,12 +17,20 @@ export const MainContentWrapper = styled.main`
 export const DashboardArea = styled.div`
     padding: 40px;
     width: 100%;
-    max-width: 1525px;
+    max-width: 1500px;
     margin: 50px auto;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @media (max-width: 768px) {
+        padding: 20px 15px;
+        margin-top: 96px;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 `;
 
 export const DashboardHeader = styled.div`
@@ -33,7 +40,9 @@ export const DashboardHeader = styled.div`
     margin-bottom: 30px;
 
     @media (max-width: 768px) {
-        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
     }
 `;
 
@@ -43,7 +52,7 @@ export const DashboardTitle = styled.h1`
     color: #333;
 
     @media (max-width: 868px) {
-        display: none;
+        font-size: 18px;
     }
 `;
 
@@ -97,6 +106,11 @@ export const AddButton = styled.button`
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+        align-self: center;
+    }
 
     &:hover {
         background: 
@@ -114,6 +128,10 @@ export const CardGrid = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 25px;
     justify-content: center;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 export const GreetingText = styled.span`
@@ -124,6 +142,6 @@ export const GreetingText = styled.span`
     margin-bottom: 4px;
 
     @media (max-width: 868px) {
-    display: none;
+        font-size: 20px;
     }
 `;

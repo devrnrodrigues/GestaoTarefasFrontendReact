@@ -25,6 +25,7 @@ import {
   AnimatedSection,
   TextAreaInput,
   DescriptionBox,
+  ExpandedFooter,
   FooterContainer, 
   CompletedText,
   ProgressWrapper,
@@ -170,6 +171,7 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
                       <EditTitleInput
                         type="text"
                         value={editTitle}
+                        placeholder="Inserir novo título..."
                         onChange={(e) => setEditTitle(e.target.value)}
                       />
                     ) : (
@@ -188,23 +190,9 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
                         </ActionIconBtn>
                       </>
                     ) : (
-                      <>
-                        <ActionIconBtn onClick={() => handleToggleExpand(sub.id)}>
-                          <Info size={18} />
-                        </ActionIconBtn>
-                        <ActionIconBtn onClick={() => handleStartEdit(sub)}>
-                          <Edit size={18} />
-                        </ActionIconBtn>
-                        <ActionIconBtn 
-                          $isDelete 
-                          onClick={() => {
-                            setSubtaskToDeleteId(sub.id);
-                            setIsDeleteModalOpen(true);
-                          }}
-                        >
-                          <Trash2 size={18} />
-                        </ActionIconBtn>
-                      </>
+                      <ActionIconBtn onClick={() => handleToggleExpand(sub.id)}>
+                        <Info size={18} />
+                      </ActionIconBtn>
                     )}
                   </ItemActions>
                 </ItemMainRow>
@@ -218,7 +206,10 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
                       transition={{ duration: 0.2, ease: 'easeInOut' }}
                     >
                       <TextAreaInput
-                        placeholder="Editar descrição..."
+                        as="textarea"
+                        rows={3}
+                        style={{ resize: 'none', overflow: 'hidden' }}
+                        placeholder="Inserir descrição..."
                         value={editDescription}
                         onChange={(e) => setEditDescription(e.target.value)}
                       />
@@ -235,6 +226,20 @@ export const TaskCardView: React.FC<TaskCardViewProps> = ({
                       <DescriptionBox className={!sub.description ? 'no-description' : ''}>
                         {sub.description || 'Sem descrição fornecida.'}
                       </DescriptionBox>
+                      <ExpandedFooter>
+                        <ActionIconBtn onClick={() => handleStartEdit(sub)}>
+                          <Edit size={16} />
+                        </ActionIconBtn>
+                        <ActionIconBtn 
+                          $isDelete 
+                          onClick={() => {
+                            setSubtaskToDeleteId(sub.id);
+                            setIsDeleteModalOpen(true);
+                          }}
+                        >
+                          <Trash2 size={16} />
+                        </ActionIconBtn>
+                      </ExpandedFooter>
                     </AnimatedSection>
                   )}
                 </AnimatePresence>

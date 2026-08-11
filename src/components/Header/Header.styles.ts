@@ -1,14 +1,9 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
-    background-color: #ffffff;
-background-image: 
-    radial-gradient(at 10% 20%, #f4f4f4 0px, #ffffff 50%),
-    radial-gradient(at 90% 80%, #ebebeb 0px, #ffffff 50%);
-    background-size: 100% 100%, 100% 100%;
+    background-color: white;
     padding: 20px 40px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1
-    );
+    border-bottom: 1px solid white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,10 +16,7 @@ background-image:
 
     @media (max-width: 768px) {
         left: 0;
-        background: 
-    radial-gradient(circle at 80% 20%, rgba(168, 230, 29, 0.4) 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.6) 0%, transparent 60%),
-    linear-gradient(135deg, rgba(11, 26, 15, 0.85) 0%, rgba(17, 42, 23, 0.85) 50%, rgba(5, 13, 8, 0.85) 100%);
+        background: #2e7d32;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
 `;

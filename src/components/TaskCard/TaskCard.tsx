@@ -52,6 +52,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         });
     };
 
+    const hasDescription = description && description.trim() !== "";
+
     return (
         <motion.div
             style={{
@@ -166,10 +168,13 @@ export const TaskCard: React.FC<TaskCardProps> = ({
                         </div>
 
                         <div style={{ display: "flex", flexDirection: "column", margin: "auto 0" }}>
-                            <CardCategory>Descrição</CardCategory>
-                            <CardTitle style={{ fontSize: "18px", fontWeight: "400", lineHeight: "1.4" }}>
-                                {description}
-                            </CardTitle>
+                            {hasDescription ? (
+                                <CardTitle style={{ fontSize: "18px", fontWeight: "400", lineHeight: "1.4" }}>
+                                    {description}
+                                </CardTitle>
+                            ) : (
+                                <CardCategory>Não há descrição.</CardCategory>
+                            )}
                         </div>
 
                         <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#666", fontWeight: "500" }}>

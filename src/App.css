@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 body {
+    background: linear-gradient(135deg, #fafbfc 0%, #eef2f7 100%);
     min-height: 100vh;
     }
 

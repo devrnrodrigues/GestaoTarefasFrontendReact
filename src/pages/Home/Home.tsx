@@ -40,114 +40,114 @@ const initialTasks: Task[] = [
         category: 'Engenharia de Software', 
         title: 'Frontend', 
         progress: 49, 
-        description: 'Conceitos avançados de Frontend',
+        description: 'Domínio de conceitos avançados de interface, otimização de performance web, arquiteturas modernas e renderização no lado do servidor para aplicações escaláveis.',
         deadline: '15/12/2026',
         subtasks: [
-            { id: '1', title: 'Gerenciamento de estado;', completed: true },
-            { id: '2', title: 'Testes de Frontend;', completed: true },
-            { id: '3', title: 'Performance Web;', completed: true },
-            { id: '4', title: 'Segurança no Frontend (XSS, CSRF);', completed: true },
-            { id: '5', title: 'SSR / SSG;', completed: false },
-            { id: '6', title: 'Microfrontends;', completed: false },
-            { id: '7', title: 'Interface de Usuário (UI);', completed: false },
-            { id: '8', title: 'Experiência de Usuário (UX);', completed: false },
-            { id: '9', title: 'Usabilidade;', completed: false },
-            { id: '10', title: 'Responsividade;', completed: false },
+            { id: '1', title: 'Gerenciamento de estado;', description: 'Estudar Redux Toolkit, Zustand e Context API para aplicações robustas.', completed: true },
+            { id: '2', title: 'Testes de Frontend;', description: 'Aprender Jest e React Testing Library para garantir a qualidade.', completed: true },
+            { id: '3', title: 'Performance Web;', description: '', completed: true },
+            { id: '4', title: 'Segurança no Frontend (XSS, CSRF);', description: 'Entender vulnerabilidades comuns e como preveni-las.', completed: true },
+            { id: '5', title: 'SSR / SSG;', description: '', completed: false },
+            { id: '6', title: 'Microfrontends;', description: 'Modularização de aplicações grandes com Module Federation.', completed: false },
+            { id: '7', title: 'Interface de Usuário (UI);', description: '', completed: false },
+            { id: '8', title: 'Experiência de Usuário (UX);', description: 'Foco na jornada do usuário e acessibilidade (a11y).', completed: false },
+            { id: '9', title: 'Usabilidade;', description: '', completed: false },
+            { id: '10', title: 'Responsividade;', description: 'Mobile-first e adaptação para múltiples dispositivos.', completed: false },
         ]
     },
     { 
         category: 'Engenharia de Software', 
         title: 'Backend', 
         progress: 39, 
-        description: 'APIs e arquitetura de servidores',
+        description: '',
         deadline: '20/11/2026',
         subtasks: [
-            { id: '1', title: 'Node.js;', completed: true },
-            { id: '2', title: 'Express;', completed: true },
-            { id: '3', title: 'JWT Auth;', completed: true },
-            { id: '4', title: 'REST APIs;', completed: false },
-            { id: '5', title: 'GraphQL;', completed: false },
-            { id: '6', title: 'Microservices;', completed: false },
-            { id: '7', title: 'Docker;', completed: false },
-            { id: '8', title: 'Swagger;', completed: false },
-            { id: '9', title: 'Redis;', completed: false },
-            { id: '10', title: 'Testes unitários;', completed: false },
+            { id: '1', title: 'Node.js;', description: 'Entender o event loop e arquitetura assíncrona.', completed: true },
+            { id: '2', title: 'Express;', description: '', completed: true },
+            { id: '3', title: 'JWT Auth;', description: 'Implementação de autenticação baseada em tokens.', completed: true },
+            { id: '4', title: 'REST APIs;', description: '', completed: false },
+            { id: '5', title: 'GraphQL;', description: 'Consultas flexíveis e tipagem estática com Apollo.', completed: false },
+            { id: '6', title: 'Microservices;', description: '', completed: false },
+            { id: '7', title: 'Docker;', description: 'Containerização de ambientes de desenvolvimento e produção.', completed: false },
+            { id: '8', title: 'Swagger;', description: '', completed: false },
+            { id: '9', title: 'Redis;', description: 'Cache em memória para alta performance.', completed: false },
+            { id: '10', title: 'Testes unitários;', description: '', completed: false },
         ]
     },
     { 
         category: 'Engenharia de Software', 
         title: 'Banco de Dados', 
         progress: 19, 
-        description: 'Modelagem e otimização',
+        description: 'Modelagem relacional e não relacional, estratégias eficientes de indexação, transações seguras e otimização contínua de consultas.',
         deadline: '10/10/2026',
         subtasks: [
-            { id: '1', title: 'SQL básico;', completed: true },
-            { id: '2', title: 'PostgreSQL;', completed: true },
-            { id: '3', title: 'Indexes;', completed: false },
-            { id: '4', title: 'Transações;', completed: false },
-            { id: '5', title: 'NoSQL;', completed: false },
-            { id: '6', title: 'MongoDB;', completed: false },
-            { id: '7', title: 'Redis cache;', completed: false },
-            { id: '8', title: 'Modelagem ER;', completed: false },
-            { id: '9', title: 'Migrations;', completed: false },
-            { id: '10', title: 'Backup e Restore;', completed: false },
+            { id: '1', title: 'SQL básico;', description: 'Comandos DDL, DML e consultas básicas.', completed: true },
+            { id: '2', title: 'PostgreSQL;', description: '', completed: true },
+            { id: '3', title: 'Indexes;', description: 'Melhoria de performance em buscas complexas.', completed: false },
+            { id: '4', title: 'Transações;', description: '', completed: false },
+            { id: '5', title: 'NoSQL;', description: 'Conceitos de bancos orientados a documentos.', completed: false },
+            { id: '6', title: 'MongoDB;', description: '', completed: false },
+            { id: '7', title: 'Redis cache;', description: 'Armazenamento chave-valor de alta velocidade.', completed: false },
+            { id: '8', title: 'Modelagem ER;', description: '', completed: false },
+            { id: '9', title: 'Migrations;', description: 'Controle de versão do esquema do banco de dados.', completed: false },
+            { id: '10', title: 'Backup e Restore;', description: '', completed: false },
         ]
     },
     { 
         category: 'Engenharia de Software', 
         title: 'Nuvem', 
         progress: 49, 
-        description: 'Deploy e infraestrutura cloud',
+        description: '',
         deadline: '05/01/2027',
         subtasks: [
-            { id: '1', title: 'AWS básico;', completed: true },
-            { id: '2', title: 'EC2;', completed: true },
-            { id: '3', title: 'S3 buckets;', completed: true },
-            { id: '4', title: 'IAM;', completed: true },
-            { id: '5', title: 'Serverless;', completed: false },
-            { id: '6', title: 'Lambda;', completed: false },
-            { id: '7', title: 'CloudFront;', completed: false },
-            { id: '8', title: 'Route 53;', completed: false },
-            { id: '9', title: 'Docker Swarm;', completed: false },
-            { id: '10', title: 'Kubernetes;', completed: false },
+            { id: '1', title: 'AWS básico;', description: 'Visão geral dos principais serviços da Amazon Web Services.', completed: true },
+            { id: '2', title: 'EC2;', description: '', completed: true },
+            { id: '3', title: 'S3 buckets;', description: 'Gerenciamento de objetos e arquivos estáticos.', completed: true },
+            { id: '4', title: 'IAM;', description: '', completed: true },
+            { id: '5', title: 'Serverless;', description: 'Computação sem servidor para redução de custos.', completed: false },
+            { id: '6', title: 'Lambda;', description: '', completed: false },
+            { id: '7', title: 'CloudFront;', description: 'CDN para entrega rápida de conteúdo global.', completed: false },
+            { id: '8', title: 'Route 53;', description: '', completed: false },
+            { id: '9', title: 'Docker Swarm;', description: 'Orquestração simples de containers.', completed: false },
+            { id: '10', title: 'Kubernetes;', description: '', completed: false },
         ]
     },
     { 
         category: 'Engenharia de Software', 
         title: 'Versionamento', 
         progress: 57, 
-        description: 'Git avançado',
+        description: 'Fluxos avançados de controle de versão utilizando Git, integração contínua e revisões de código estruturadas.',
         deadline: '30/09/2026',
         subtasks: [
-            { id: '1', title: 'Git init;', completed: true },
-            { id: '2', title: 'Branching;', completed: true },
-            { id: '3', title: 'Rebase;', completed: true },
-            { id: '4', title: 'Cherry-pick;', completed: true },
-            { id: '5', title: 'Git flow;', completed: true },
-            { id: '6', title: 'GitHub Actions;', completed: false },
-            { id: '7', title: 'Pull Requests;', completed: false },
-            { id: '8', title: 'Code Review;', completed: false },
-            { id: '9', title: 'Submodules;', completed: false },
-            { id: '10', title: 'Git hooks;', completed: false },
+            { id: '1', title: 'Git init;', description: 'Configuração inicial e comandos essenciais.', completed: true },
+            { id: '2', title: 'Branching;', description: '', completed: true },
+            { id: '3', title: 'Rebase;', description: 'Manutenção de um histórico linear e limpo.', completed: true },
+            { id: '4', title: 'Cherry-pick;', description: '', completed: true },
+            { id: '5', title: 'Git flow;', description: 'Estratégia de ramificação para equipes.', completed: true },
+            { id: '6', title: 'GitHub Actions;', description: '', completed: false },
+            { id: '7', title: 'Pull Requests;', description: 'Boas práticas de abertura e descrição.', completed: false },
+            { id: '8', title: 'Code Review;', description: '', completed: false },
+            { id: '9', title: 'Submodules;', description: 'Gerenciamento de dependências entre repositórios.', completed: false },
+            { id: '10', title: 'Git hooks;', description: '', completed: false },
         ]
     },
     { 
         category: 'Engenharia de Software', 
         title: 'Testes', 
         progress: 27, 
-        description: 'Testes unitários e e2e',
+        description: '',
         deadline: '18/11/2026',
         subtasks: [
-            { id: '1', title: 'Jest;', completed: true },
-            { id: '2', title: 'Vitest;', completed: true },
-            { id: '3', title: 'React Testing Library;', completed: false },
-            { id: '4', title: 'Cypress;', completed: false },
-            { id: '5', title: 'Playwright;', completed: false },
-            { id: '6', title: 'TDD;', completed: false },
-            { id: '7', title: 'Mocking;', completed: false },
-            { id: '8', title: 'Coverage;', completed: false },
-            { id: '9', title: 'E2E testing;', completed: false },
-            { id: '10', title: 'Integration tests;', completed: false },
+            { id: '1', title: 'Jest;', description: 'Framework de testes em JavaScript.', completed: true },
+            { id: '2', title: 'Vitest;', description: '', completed: true },
+            { id: '3', title: 'React Testing Library;', description: 'Testes focados no comportamento do usuário.', completed: false },
+            { id: '4', title: 'Cypress;', description: '', completed: false },
+            { id: '5', title: 'Playwright;', description: 'Automação moderna para testes E2E.', completed: false },
+            { id: '6', title: 'TDD;', description: '', completed: false },
+            { id: '7', title: 'Mocking;', description: 'Simulação de APIs e funções isoladas.', completed: false },
+            { id: '8', title: 'Coverage;', description: '', completed: false },
+            { id: '9', title: 'E2E testing;', description: 'Validação de fluxos completos de ponta a ponta.', completed: false },
+            { id: '10', title: 'Integration tests;', description: '', completed: false },
         ]
     },
 ];
@@ -257,6 +257,25 @@ export const Home: React.FC = () => {
         }
     };
 
+    const handleUpdateGoalTasks = (updatedSubtasks: SubTask[]) => {
+        if (selectedTaskIndex !== null) {
+            const updatedTasks = [...tasks];
+            const currentTask = updatedTasks[selectedTaskIndex];
+
+            const total = updatedSubtasks.length;
+            const completed = updatedSubtasks.filter((st) => st.completed).length;
+            const newProgress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            updatedTasks[selectedTaskIndex] = {
+                ...currentTask,
+                subtasks: updatedSubtasks,
+                progress: newProgress,
+            };
+
+            setTasks(updatedTasks);
+        }
+    };
+
     const handleAddSubtasks = (newSubtasks: SubTask[]) => {
         if (selectedTaskIndex !== null) {
             const updatedTasks = [...tasks];
@@ -337,6 +356,7 @@ export const Home: React.FC = () => {
                             task={tasks[selectedTaskIndex]} 
                             onClose={() => setSelectedTaskIndex(null)} 
                             onAddTasks={handleAddSubtasks}
+                            onUpdateTasks={handleUpdateGoalTasks}
                             onUpdateSingleTask={handleUpdateSingleTask}
                             onToggleSubtask={handleToggleSubtask}
                             onDeleteTask={() => handleOpenDeleteModal(selectedTaskIndex)}

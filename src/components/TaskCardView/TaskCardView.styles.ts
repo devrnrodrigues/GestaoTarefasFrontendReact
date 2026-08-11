@@ -70,7 +70,7 @@ export const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 14px;
-    padding: 4px 6px 4px 6px;
+    padding: 4px 6px 4px 0;
     scrollbar-width: none;
 `;
 
@@ -80,7 +80,7 @@ export const ListItem = styled.div<{ $isExpandedOrEditing: boolean }>`
     align-items: stretch;
     gap: ${({ $isExpandedOrEditing }) => ($isExpandedOrEditing ? '12px' : '0px')};
     background: rgba(255, 255, 255, 0.45);
-    padding: 15px 25px;
+    padding: 15px 15px 15px 25px;
     border-radius: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: gap 0.2s ease;
@@ -152,6 +152,15 @@ export const EditTitleInput = styled.input`
     outline: none;
     transition: all 0.2s ease;
 
+    &::placeholder {
+    color: #94a3b8;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    }
+    &:focus::placeholder {
+    opacity: 1;
+    }
+
     &:focus {
         border-color: #2E7D32;
     }
@@ -200,6 +209,15 @@ export const TextAreaInput = styled.textarea`
     font-size: 13px;
     transition: all 0.2s ease;
 
+    &::placeholder {
+    color: #94a3b8;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    }
+    &:focus::placeholder {
+    opacity: 1;
+    }
+
     &:focus {
         border-color: #2E7D32;
     }
@@ -209,15 +227,23 @@ export const DescriptionBox = styled.div`
     width: 100%;
     padding-top: 10px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
-    font-size: 13px;
+    font-size: 14px;
     color: #555555;
     white-space: pre-wrap;
     word-break: break-word;
-     &.no-description {
-    font-style: italic;
-    font-size: 12px;
-    color: #666;
-  }
+    &.no-description {
+        font-style: italic;
+        font-size: 12px;
+        color: #666;
+    }
+`;
+
+export const ExpandedFooter = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
 `;
 
 export const FooterContainer = styled.div`

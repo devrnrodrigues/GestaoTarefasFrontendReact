@@ -1,5 +1,6 @@
 import React from 'react';
-import { CheckSquare, Home as HomeIcon, History, HelpCircle, Info } from 'lucide-react';
+import logo from '../../assets/logo.png';
+import { Home as HomeIcon, History, HelpCircle, Info } from 'lucide-react';
 import {
   SidebarContainer,
   SidebarOverlay,
@@ -24,9 +25,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       <SidebarContainer $isOpen={isOpen}>
         <div>
           <Logo>
-            <LogoIcon>
-              <CheckSquare size={20} />
-            </LogoIcon>
+              <LogoIcon>
+                <img src={logo} alt="GestãoMetas" />
+              </LogoIcon>
             <LogoText>GestãoMetas</LogoText>
           </Logo>
           <NavLinks>
