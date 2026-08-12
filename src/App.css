@@ -2,13 +2,13 @@
     box-sizing: border-box;
 }
 body {
-    background: linear-gradient(135deg, #fafbfc 0%, #eef2f7 100%);
+    background: linear-gradient(to right, #FFFFFF, #F2F7F4);
     min-height: 100vh;
     }
 
 body, h1, h2, p, ul, li {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif, 'Segoe UI', Tahoma, Geneva, Verdana;
 }
 

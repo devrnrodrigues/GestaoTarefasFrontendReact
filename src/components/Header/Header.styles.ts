@@ -13,7 +13,7 @@ export const HeaderContainer = styled.header`
     left: 260px;
     z-index: 2;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     @media (max-width: 768px) {
         left: 0;
         background: #2e7d32;
